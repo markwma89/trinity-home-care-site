@@ -1,0 +1,485 @@
+/* ===================================================================
+   TRINITY HOME CARE — Careers Page Styles
+   Extends main.css. Loaded only on careers.html.
+   =================================================================== */
+
+/* -------------------------------------------------------------------
+   Hero — photo background
+   ------------------------------------------------------------------- */
+.careers-hero {
+  background-image: url('../assets/images/supporting/caregiver-smiling-with-senior-wheelchair.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  min-height: 72vh;
+  min-height: 72svh;
+}
+
+@media (max-width: 767px) {
+  .careers-hero {
+    min-height: 78vh;
+    min-height: 78svh;
+    background-position: center 20%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .careers-hero {
+    background-image: url('../assets/images/supporting/caregiver-smiling-with-senior-wheelchair.jpg');
+    background-size: cover;
+    background-position: center 30%;
+  }
+}
+
+/* -------------------------------------------------------------------
+   Why Work at Trinity — ivory, 2×2 card grid
+   ------------------------------------------------------------------- */
+.section-careers-why {
+  background: var(--color-ivory);
+}
+
+.careers-why-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+  margin-top: 2.5rem;
+}
+
+@media (min-width: 600px) {
+  .careers-why-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1024px) {
+  .careers-why-grid { grid-template-columns: repeat(4, 1fr); gap: 1.5rem; }
+}
+
+.careers-why-card {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 1.75rem 1.5rem;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  transition: box-shadow var(--t-base), transform var(--t-base);
+}
+
+.careers-why-card:hover {
+  box-shadow: var(--shadow-card-hover);
+  transform: translateY(-2px);
+}
+
+.careers-why-icon {
+  width: 48px;
+  height: 48px;
+  background: var(--color-navy);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.careers-why-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: var(--color-gold);
+  fill: none;
+}
+
+.careers-why-card h3 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  margin: 0;
+  letter-spacing: -0.01em;
+}
+
+.careers-why-card p {
+  font-size: 0.9rem;
+  color: var(--color-text-sub);
+  line-height: 1.7;
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------
+   Who We're Looking For — white, trait chips
+   ------------------------------------------------------------------- */
+.section-careers-traits {
+  background: var(--color-white);
+}
+
+.careers-traits-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .careers-traits-layout { grid-template-columns: 50fr 50fr; gap: 5rem; }
+}
+
+.careers-traits-intro > p {
+  font-size: 1.0625rem;
+  line-height: 1.78;
+  color: var(--color-text-sub);
+  margin-top: 1.25rem;
+  max-width: 44ch;
+}
+
+.careers-traits-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.875rem;
+}
+
+@media (min-width: 480px) {
+  .careers-traits-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+@media (min-width: 900px) {
+  .careers-traits-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (min-width: 1100px) {
+  .careers-traits-grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+.careers-trait {
+  display: flex;
+  align-items: center;
+  gap: 0.625rem;
+  padding: 0.875rem 1rem;
+  background: var(--color-ivory);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-ivory-dark);
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+
+.careers-trait:hover {
+  border-color: var(--color-teal);
+  background: rgba(95, 143, 149, 0.05);
+}
+
+.careers-trait-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--color-gold);
+  flex-shrink: 0;
+}
+
+.careers-trait span {
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-navy);
+}
+
+/* -------------------------------------------------------------------
+   Application Form section — ivory background
+   ------------------------------------------------------------------- */
+.section-careers-form {
+  background: var(--color-ivory);
+}
+
+.careers-form-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+@media (min-width: 960px) {
+  .careers-form-layout { grid-template-columns: 38fr 62fr; gap: 5rem; }
+}
+
+.careers-form-intro {
+  display: flex;
+  flex-direction: column;
+}
+
+.careers-form-intro > p {
+  font-size: 1.0625rem;
+  line-height: 1.78;
+  color: var(--color-text-sub);
+  max-width: 44ch;
+  margin-top: 1.25rem;
+}
+
+.careers-form-note {
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: var(--color-text-muted);
+  line-height: 1.65;
+  margin-top: 1.25rem;
+  padding: 1rem 1.25rem;
+  background: rgba(95, 143, 149, 0.07);
+  border-left: 3px solid var(--color-teal);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+.careers-contact-quick {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  padding-top: 1.75rem;
+  border-top: 1px solid var(--color-ivory-dark);
+}
+
+.careers-contact-quick a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-navy);
+  transition: color var(--t-fast);
+}
+
+.careers-contact-quick a:hover { color: var(--color-teal); }
+
+.careers-contact-quick svg {
+  width: 15px;
+  height: 15px;
+  stroke: var(--color-teal);
+  flex-shrink: 0;
+}
+
+/* -------------------------------------------------------------------
+   Form card — reuses contact-form-card pattern with rotating border
+   ------------------------------------------------------------------- */
+.careers-form-card {
+  position: relative;
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  box-shadow: var(--shadow-card);
+}
+
+.careers-form-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 3px;
+  background: conic-gradient(
+    from var(--border-angle),
+    var(--color-navy-dark)   0deg,
+    var(--color-navy-dark)   285deg,
+    var(--color-navy)        293deg,
+    var(--color-navy-mid)    300deg,
+    var(--color-teal-muted)  307deg,
+    var(--color-teal)        313deg,
+    var(--color-teal-light)  317deg,
+    var(--color-sage)        320deg,
+    var(--color-ivory-dark)  323deg,
+    var(--color-gold-light)  326deg,
+    var(--color-gold)        332deg,
+    var(--color-teal-muted)  342deg,
+    var(--color-navy)        353deg,
+    var(--color-navy-dark)   360deg
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: rotateBorder 4s linear infinite;
+}
+
+.careers-form-card .form-label {
+  color: var(--color-text-sub);
+}
+
+.careers-form-card .form-input,
+.careers-form-card .form-textarea,
+.careers-form-card .form-select {
+  background: var(--color-ivory);
+  border-color: var(--color-ivory-dark);
+  color: var(--color-text);
+}
+
+.careers-form-card .form-input::placeholder,
+.careers-form-card .form-textarea::placeholder {
+  color: var(--color-stone);
+}
+
+.careers-form-card .form-select {
+  color: var(--color-text-sub);
+}
+
+.careers-form-card .form-select option {
+  background: var(--color-white);
+  color: var(--color-text);
+}
+
+.careers-form-card .form-input:focus,
+.careers-form-card .form-textarea:focus,
+.careers-form-card .form-select:focus {
+  border-color: var(--color-teal);
+  background: var(--color-white);
+  box-shadow: 0 0 0 3px rgba(95, 143, 149, 0.12);
+}
+
+/* Form section heading */
+.careers-form-section-head {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-teal-muted);
+  margin: 1.75rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--color-ivory-dark);
+}
+
+.careers-form-section-head:first-of-type {
+  margin-top: 0;
+}
+
+/* -------------------------------------------------------------------
+   File upload input
+   ------------------------------------------------------------------- */
+.form-file-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.375rem;
+}
+
+.form-file-input {
+  display: block;
+  width: 100%;
+  font-size: 0.875rem;
+  font-family: var(--font-body);
+  color: var(--color-text-sub);
+  background: var(--color-ivory);
+  border: 1px solid var(--color-ivory-dark);
+  border-radius: var(--radius-input);
+  padding: 0.625rem 0.875rem;
+  cursor: pointer;
+  transition: border-color var(--t-fast), background var(--t-fast);
+}
+
+.form-file-input:focus {
+  outline: 2px solid var(--color-teal);
+  outline-offset: 2px;
+  border-color: var(--color-teal);
+}
+
+.form-file-input::file-selector-button {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--color-white);
+  background: var(--color-navy);
+  border: none;
+  border-radius: 4px;
+  padding: 0.3125rem 0.875rem;
+  margin-right: 0.75rem;
+  cursor: pointer;
+  transition: background var(--t-fast);
+}
+
+.form-file-input::file-selector-button:hover {
+  background: var(--color-teal);
+}
+
+.form-file-hint {
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  line-height: 1.5;
+}
+
+/* -------------------------------------------------------------------
+   Radio group (transportation yes/no)
+   ------------------------------------------------------------------- */
+.form-radio-group {
+  display: flex;
+  gap: 1.5rem;
+  padding: 0.5rem 0;
+}
+
+.form-radio-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9375rem;
+  color: var(--color-text-sub);
+  cursor: pointer;
+  font-weight: 400;
+}
+
+.form-radio-label input[type="radio"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-teal);
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+/* -------------------------------------------------------------------
+   Confirmation checkbox
+   ------------------------------------------------------------------- */
+.form-check-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.form-check-wrap input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-teal);
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+}
+
+.form-check-label {
+  font-size: 0.875rem;
+  color: var(--color-text-sub);
+  line-height: 1.6;
+  cursor: pointer;
+}
+
+/* Error state for checkbox */
+.form-check-wrap.is-invalid .form-check-label {
+  color: rgba(200, 60, 60, 0.9);
+}
+
+/* -------------------------------------------------------------------
+   Form submit button full-width
+   ------------------------------------------------------------------- */
+.careers-form-card .btn-submit-full {
+  width: 100%;
+  padding: 0.9375rem;
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+/* -------------------------------------------------------------------
+   City / State / ZIP trio row
+   ------------------------------------------------------------------- */
+.form-row--trio {
+  grid-template-columns: 1fr 5rem 6rem;
+}
+
+@media (max-width: 479px) {
+  .form-row--trio { grid-template-columns: 1fr; }
+}
+
+/* -------------------------------------------------------------------
+   Mobile padding reduction
+   ------------------------------------------------------------------- */
+@media (max-width: 479px) {
+  .careers-form-card { padding: 1.5rem 1.25rem; }
+}

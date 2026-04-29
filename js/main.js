@@ -197,6 +197,68 @@
   });
 
   /* -----------------------------------------------------------------
+     Careers Form — client-side validation feedback
+     The form action must be wired to a backend or form service.
+     ----------------------------------------------------------------- */
+  const careersForm = document.getElementById('careers-form');
+
+  careersForm?.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const requiredFields = this.querySelectorAll('[required]');
+    let isValid = true;
+    let firstInvalid = null;
+
+    requiredFields.forEach(field => {
+      field.style.borderColor = '';
+
+      // Checkbox validity check
+      if (field.type === 'checkbox') {
+        const wrap = field.closest('.form-check-wrap');
+        if (!field.checked) {
+          isValid = false;
+          if (wrap) wrap.classList.add('is-invalid');
+          if (!firstInvalid) firstInvalid = field;
+        } else {
+          if (wrap) wrap.classList.remove('is-invalid');
+        }
+        return;
+      }
+
+      // Radio group: check at least one in the group is selected
+      if (field.type === 'radio') {
+        const group = this.querySelectorAll(`[name="${field.name}"]`);
+        const anyChecked = Array.from(group).some(r => r.checked);
+        if (!anyChecked) {
+          isValid = false;
+          if (!firstInvalid) firstInvalid = field;
+        }
+        return;
+      }
+
+      if (!field.value.trim()) {
+        isValid = false;
+        field.style.borderColor = 'rgba(224, 112, 112, 0.8)';
+        if (!firstInvalid) firstInvalid = field;
+      }
+    });
+
+    if (!isValid) {
+      if (firstInvalid) firstInvalid.focus();
+      return;
+    }
+
+    const submitBtn = this.querySelector('[type="submit"]');
+    submitBtn.textContent = 'Submitting…';
+    submitBtn.disabled = true;
+
+    // Replace setTimeout with real fetch/POST when wiring to a backend or form service.
+    setTimeout(() => {
+      window.location.href = 'careers-thank-you.html';
+    }, 800);
+  });
+
+  /* -----------------------------------------------------------------
      Desktop nav dropdown — hover intent (150ms) + keyboard + outside click
      ----------------------------------------------------------------- */
   const dropdowns = document.querySelectorAll('.nav-has-dropdown');
