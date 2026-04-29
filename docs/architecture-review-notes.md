@@ -1,138 +1,149 @@
-# Architecture Review — Trinity Home Care Site
-
-**Reviewed:** 2026-04-12  
-**Scope:** `css/main.css`, `index.html`, `js/main.js`  
-**Site type:** Static single-page HTML5/CSS3/vanilla JS
+# Architecture and Congruency Review
+**Last updated:** 2026-04-29
+**Scope:** All 22 HTML pages, 7 CSS files, 3 JS files, /assets/ folder
+**Prior review:** 2026-04-12 covered only `index.html`, `main.css`, `main.js` — this supersedes it
 
 ---
 
 ## Summary
 
-The codebase is a well-structured, single-page static site. The HTML, CSS, and JS each own their responsibilities cleanly. No framework drift, no mixing of concerns. The numbered section system in `main.css` is the primary architecture pattern — deviations from it are the main source of maintainability risk.
+The site is a well-disciplined, no-build-tool HTML/CSS/JS project. Design tokens are comprehensive and consistently applied — zero raw hex values appear outside `main.css` itself (where they define the tokens). The CSS section numbering system and IIFE pattern in JS are applied consistently across all files. Prior review findings (ACR-1 through ACR-4) were resolved on 2026-04-12. New issues focus on: a live nav-active-state CSS bug on `careers.html`, form handler separation of concerns, a duplicated hero base class, and SEO gaps on confirmation pages.
 
 ---
 
-## Structural Issues
+## CSS Architecture
 
-### 1. `@keyframes rotateBorder` defined 1,370 lines after first use
+### ARCH-01 — Active-nav rule duplicated in 4 page CSS files; missing from careers.css (BUG)
+- **Type:** pattern-inconsistency / bug
+- **Locations:** `.nav-link[aria-current="page"]::after` rule exists in `about.css`, `how-it-works.css`, `services.css`, and `contact.css`. **Missing from `careers.css`.**
+- **Effect:** The active navigation underline/highlight does not appear on the careers page.
+- **Fix:** Move both nav-active rules into `main.css` §7 (Header & Navigation). Delete copies from all four page files. `careers.html` gets it for free.
+- **Priority:** High — live bug
 
-**Severity:** Medium — maintainability risk  
-**Location:** `css/main.css:1734` (definition) vs `css/main.css:397` (first use in `.btn::before`)
+### ARCH-02 — `.section-hero--page` base styles duplicated across 4–5 CSS files
+- **Type:** duplicate / separation-of-concerns
+- **Locations:** `about.css`, `contact.css`, `services.css`, `how-it-works.css`, `services-page.css` — all include `background-size: cover`, `background-repeat: no-repeat`, `min-height`, and the `svh` fallback pair.
+- **Effect:** 4–5 files must change if shared hero height/size values change.
+- **Fix:** Add `.section-hero--page` base rule to `main.css`. Each page CSS file keeps only its unique `background-image` and `background-position`.
+- **Priority:** Medium
 
-`@keyframes rotateBorder` is declared inside the Contact Section block (§15), but the animation is first applied to `.btn::before` in the Buttons section (§5). The `@property --border-angle` registration lives at line 8.
+### ARCH-03 — Hardcoded hex values in `how-it-works.css` step card gradients
+- **Type:** pattern-inconsistency
+- **Location:** `css/how-it-works.css` lines ~150–154
+- **Problem:** Raw hex `#5F8F95` (matches `--color-teal`) and `#3d6b70` (close to `--color-teal-muted`) used directly.
+- **Fix:** Replace with `var(--color-teal)` and `var(--color-teal-muted)`.
+- **Priority:** Low
 
-The animation system (`@property` + `@keyframes`) should be co-located at the top of the file, directly below the `@property` declaration. This makes the animated border system self-contained and findable without scrolling 1,700 lines.
+### ARCH-04 — `#fff` in CSS mask declarations bypasses token system
+- **Type:** naming (cosmetic)
+- **Locations:** `css/services-page.css` lines ~314–319, `css/careers.css` lines ~286–291`
+- **Fix:** Replace with `var(--color-white)` for consistency; `#fff` in mask contexts is functional but inconsistent with zero-raw-hex convention.
+- **Priority:** Cosmetic
 
-**Recommended fix:** Move `@keyframes rotateBorder` to immediately follow the `@property --border-angle` block at the top of the file (around line 12). Remove it from the Contact Section.
-
----
-
-### 2. Duplicate conic-gradient color stops — two copies, no shared source
-
-**Severity:** Medium — sync hazard  
-**Locations:** `css/main.css:371–397` (buttons) and `css/main.css:1752–1784` (contact containers)
-
-The 14-stop conic-gradient strip is defined twice with identical color stops. If brand colors change, both blocks must be updated manually and in sync. Native CSS has no mechanism to alias a full gradient, but:
-
-- Both blocks can reference `var(--color-*)` tokens for each stop instead of raw hex. CSS `conic-gradient()` accepts `var()` for color values.
-- A comment above each block should explicitly link them: `/* See also: .btn::before (§5) — keep color stops in sync */`
-
-**Recommended fix:** Replace all raw hex color values in both gradients with the corresponding CSS custom properties. Add sync-warning comments. Example:
-
-```css
-background: conic-gradient(
-  from var(--border-angle),
-  var(--color-navy-dark)   0deg,
-  var(--color-navy-dark)   285deg,
-  var(--color-navy)        293deg,
-  var(--color-navy-mid)    300deg,
-  var(--color-teal-muted)  307deg,
-  var(--color-teal)        313deg,
-  var(--color-teal-light)  317deg,
-  var(--color-sage)        320deg,
-  var(--color-ivory-dark)  323deg,
-  var(--color-gold-light)  326deg,
-  var(--color-gold)        332deg,
-  var(--color-teal-muted)  342deg,
-  var(--color-navy)        353deg,
-  var(--color-navy-dark)   360deg
-);
-```
+### ARCH-05 — `main.css` §14 (Process section) contains homepage-only styles
+- **Type:** separation-of-concerns
+- **Location:** `css/main.css` lines ~1299–1397 — `.section-process` / `.process-step` etc.
+- **Problem:** These ~100 lines load on all 22 pages but are used only by `index.html`.
+- **Fix:** Extract to `css/index.css` (consistent with the page-specific CSS pattern used everywhere else), or accept the overhead as negligible at this scale.
+- **Priority:** Low
 
 ---
 
-### 3. Animated border block is unnumbered — breaks the section system
+## JavaScript Architecture
 
-**Severity:** Low — discoverability  
-**Location:** `css/main.css:351–398`
+### ARCH-06 — Form validation logic duplicated across 3–4 JS files
+- **Type:** separation-of-concerns / duplicate
+- **Locations:** `js/main.js:169–197` (contact), `js/main.js:203–259` (careers), `js/how-it-works.js:285–308` (CTA), `js/services-page.js:45–73` (service CTA). Hardcoded error color string appears in all four: `rgba(224, 112, 112, 0.8)`. Minor inconsistency: `how-it-works.js` omits spaces in `rgba()`.
+- **Fix:** Extract `validateForm(formEl, onValid)` utility into `main.js`. Move error color to CSS custom property `--color-error` toggled via a class (`.field-invalid`).
+- **Priority:** High maintainability
 
-The animated gradient border block sits between "5. Buttons" and "6. Header & Navigation" without a section number. The numbered section system is the primary navigation aid in a 2,000-line file. The unnumbered block creates a blind spot.
+### ARCH-07 — `main.js` carries page-specific form handlers for contact and careers
+- **Type:** separation-of-concerns
+- **Location:** `js/main.js` lines 169–259 (80 lines of form handling in a global file)
+- **Problem:** The file header lists responsibilities as: sticky header, mobile menu, scroll-reveal, smooth anchor scroll, stat counter. Form handling is not listed yet represents ~25% of the file. The careers handler (56 lines, checkbox + radio logic) is especially out of place.
+- **Fix:** After ARCH-06 extraction, move contact handler to `js/contact.js` (new, loaded only on `contact.html`) and careers handler to `js/careers.js` (new, loaded only on `careers.html`).
+- **Priority:** Medium
 
-**Recommended fix:** Number it as section 5a or renumber subsequent sections and call it "6. Animated Gradient Borders." The latter is preferable since it cleanly separates button styles from their animation decoration.
+### ARCH-08 — How It Works CTA confirmation behavior differs from all other forms
+- **Type:** pattern-inconsistency
+- **Location:** `js/how-it-works.js` lines ~300–307
+- **Problem:** On valid submission, shows "Request Sent" text in-place. Every other form redirects to a thank-you page. Undocumented.
+- **Fix:** Either redirect to `thank-you.html` (consistent) or add a comment explaining the intentional divergence.
+- **Priority:** Low
 
----
-
-## Naming Issues
-
-### 4. Logo filenames are non-semantic and contain spaces
-
-**Severity:** Low — developer experience  
-**Location:** `assets/logo/`
-
-Current filenames:
-- `Golden elegance of Trinity Home Care.png` (light/gold version)
-- `Trinity Home Care logo design (1).png` (dark version)
-- `Trinity Home Care logo design (2).png` (unused)
-- `Trinity Home Care logo design.png` (unused)
-- `Trinity Home Care branding presentation.png` (reference asset)
-
-These names break URL encoding conventions and are hard to reference. They also don't convey which variant each file is (light/dark, header/footer/favicon).
-
-**Recommended rename:**
-
-| Current | Recommended |
-|---------|-------------|
-| `Golden elegance of Trinity Home Care.png` | `logo-light.png` |
-| `Trinity Home Care logo design (1).png` | `logo-dark.png` |
-| `Trinity Home Care logo design.png` | `logo-variant-a.png` (archive) |
-| `Trinity Home Care logo design (2).png` | `logo-variant-b.png` (archive) |
-| `Trinity Home Care branding presentation.png` | (move to `docs/assets/`) |
-
-Update all references in `index.html` and `css/main.css` accordingly.
+### ARCH-09 — `services-page.js` uses alternate IIFE form (cosmetic)
+- **Type:** naming (cosmetic)
+- **Problem:** `main.js` and `how-it-works.js` use `(function () { ... })()`. `services-page.js` uses `(function () { ... }())`. Both valid; standardize to one form.
+- **Priority:** Cosmetic
 
 ---
 
-## Congruency Issues
+## File Organization
 
-### 5. Z-index tokens inconsistently applied in hero section
+### ARCH-10 — Thank-you pages missing noindex meta and structured head
+- **Type:** missing-pattern
+- **Location:** `thank-you.html` and `careers-thank-you.html` — both lack `<meta name="robots">`, Open Graph tags, canonical URL, and preload blocks present on every other page.
+- **Critical gap:** No `noindex` directive — these pages may be indexed by search engines.
+- **Fix:** Add `<meta name="robots" content="noindex, nofollow">` to both pages immediately.
+- **Priority:** Medium (SEO)
 
-**Severity:** Low — cosmetic  
-**Location:** `css/main.css:758, 772, 789`
+### ARCH-11 — `services.css` vs `services-page.css` naming is unclear
+- **Type:** naming
+- **Problem:** `services.css` styles `services.html` (overview page); `services-page.css` styles the 10 individual service detail pages. The distinction is not obvious from names alone.
+- **Fix:** Rename `services-page.css` to `service-detail.css` and update all 10 `<link>` tags. Or add header comments to both files.
+- **Priority:** Low
 
-The design tokens define a z-index scale (`--z-base: 1`, `--z-above: 10`, `--z-header: 100`, `--z-modal: 200`). The hero section uses raw values (z-index: 0, 1, 2) for the stacking context of video/overlay/content. This is technically correct — these values are relative to the hero stacking context, not the document — but the pattern diverges from the token system.
-
-The raw values are defensible here since 0/1/2 are a local stacking context, not document-level z-indexes. No change required, but a comment explaining the local-context intent would prevent future confusion.
+### ARCH-12 — No `defer` attribute on any `<script>` tag
+- **Type:** missing-pattern
+- **Location:** All 22 pages — scripts placed at bottom of `<body>` without `defer`
+- **Problem:** Technically correct (bottom placement) but adding `defer` enables parallel download during HTML parse.
+- **Fix:** Add `defer` to all `<script src="...">` tags.
+- **Priority:** Low
 
 ---
 
-## What's Working Well
+## Naming Conventions
 
-- **Single-file architecture is correct** for a one-page static site. Splitting into partials would add build tooling complexity with no benefit at this scale.
-- **Design tokens are comprehensive** and consistently used throughout the property declarations.
-- **CSS section numbering** (1–18) makes the file navigable despite its length.
-- **Separation of concerns** is clean: HTML for structure, CSS for presentation, JS for behavior. No inline styles, no embedded scripts.
-- **Accessibility patterns** are consistently applied: `aria-label`, `aria-hidden`, `role` attributes, `skip-link`, `.sr-only`, keyboard nav, focus rings.
-- **`prefers-reduced-motion`** is honored in both CSS (Section 18) and JS.
-- **Asset folder structure** (`images/hero/`, `images/services/`, `images/supporting/`, `video/`) is semantic and scales cleanly.
+CSS class naming uses a consistent BEM-adjacent pattern throughout: block names are semantic (`hiw-`, `service-`, `contact-`, `nav-`), state modifiers use `is-` prefix, variants use `--` modifier. No inconsistencies found.
+
+JS uses `camelCase` for functions and variables, `SCREAMING_SNAKE_CASE` for module-level constants in `how-it-works.js`. Consistent with `main.js`.
+
+File naming is `kebab-case` throughout. The only naming concern is `services.css` / `services-page.css` (ARCH-11).
 
 ---
 
-## Recommended Architecture Changes (Priority Order)
+## Pattern Consistency
 
-| Priority | Change | Impact |
-|----------|--------|--------|
-| 1 | Move `@keyframes rotateBorder` to top of file near `@property` | High — eliminates forward-reference confusion |
-| 2 | Replace raw hex in gradients with `var(--color-*)` tokens | Medium — single source of truth for brand colors |
-| 3 | Number the animated border section | Low — discoverability in a 2,000-line file |
-| 4 | Rename logo files to semantic names | Low — developer experience, URL cleanliness |
-| 5 | Add local-context comment to hero z-index values | Low — prevents future confusion |
+CSS load order is consistent: `main.css` first, page-specific CSS second. Scripts load `main.js` first, page-specific JS second. All `/services/*.html` pages are fully uniform in their `<head>` structure. Root pages similarly consistent.
+
+`how-it-works.js` correctly mirrors `main.js` structural patterns: IIFE, strict mode, `prefersReducedMotion` at top, optional chaining on DOM refs, event delegation.
+
+One undocumented H3 pattern: every H3 in a list/card context explicitly overrides to `font-family: var(--font-body)` (Inter). This is a consistent design choice (Cormorant Garamond is too light at 18–20px in dense list items) but is achieved through repeated property overrides rather than a documented rule. Worth documenting as: "H3 in UI contexts = Inter SemiBold; H3 in editorial/hero contexts = Cormorant Garamond."
+
+---
+
+## Prior Review Items (2026-04-12) — Resolved
+
+| ID | Finding | Resolution |
+|---|---|---|
+| ACR-1 | `@keyframes rotateBorder` 1,370 lines after first use | ✅ Moved to top of file on 2026-04-12 |
+| ACR-2 | Duplicate 14-stop conic-gradient, no shared source | ✅ Tokenized with `var(--color-*)` on 2026-04-12 |
+| ACR-3 | Animated border section unnumbered | ✅ Numbered as §6 on 2026-04-12 |
+| ACR-4 | Logo files with non-semantic names/spaces | ✅ Renamed to logo-light2.png, logo-dark2.png on 2026-04-12 |
+
+---
+
+## Recommendations (Priority Order)
+
+| # | Finding | Impact | Effort |
+|---|---|---|---|
+| 1 | ARCH-01: Move active-nav rule to main.css — fixes live careers bug | High | Low |
+| 2 | ARCH-10: Add noindex to both thank-you pages | Medium (SEO) | Low |
+| 3 | ARCH-06: Extract shared form validation utility + CSS error class | High maintainability | Medium |
+| 4 | ARCH-07: Move page-specific form handlers out of main.js | Medium | Low (after ARCH-06) |
+| 5 | ARCH-02: Consolidate .section-hero--page base into main.css | Medium | Low |
+| 6 | ARCH-11: Rename services-page.css → service-detail.css | Low | Low |
+| 7 | ARCH-12: Add defer to all script tags | Low | Low |
+| 8 | ARCH-03: Replace raw hex in how-it-works.css gradients with tokens | Low | Low |
+| 9 | ARCH-04: Replace #fff mask values with var(--color-white) | Cosmetic | Low |
+| 10 | ARCH-08: Resolve How It Works CTA redirect inconsistency | Low | Low |

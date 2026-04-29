@@ -530,6 +530,9 @@ em { font-style: italic; }
 }
 .site-header.is-scrolled .nav-link::after { background: var(--color-teal); }
 
+.nav-link[aria-current="page"]::after { transform: scaleX(1); }
+.site-header.is-scrolled .nav-link[aria-current="page"] { color: var(--color-navy); }
+
 /* Nav right group */
 .nav-cta-group {
   display: flex;
@@ -1954,6 +1957,19 @@ em { font-style: italic; }
 }
 .footer-link:hover { color: var(--color-white); }
 .footer-location { cursor: default; }
+
+.footer-group-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  padding-bottom: 2px;
+  display: block;
+  pointer-events: none;
+  cursor: default;
+}
+.footer-group-label--teal { color: var(--color-teal); }
+.footer-group-label--gold { color: var(--color-gold); padding-top: 6px; }
 
 .footer-bottom {
   display: flex;

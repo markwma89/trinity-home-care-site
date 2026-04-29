@@ -4,12 +4,6 @@
    =================================================================== */
 
 /* -------------------------------------------------------------------
-   Active nav link
-   ------------------------------------------------------------------- */
-.nav-link[aria-current="page"]::after { transform: scaleX(1); }
-.site-header.is-scrolled .nav-link[aria-current="page"] { color: var(--color-navy); }
-
-/* -------------------------------------------------------------------
    Hero — static image background
    ------------------------------------------------------------------- */
 .section-hero--page {
@@ -148,7 +142,7 @@
   background-position: center;
 }
 .hiw-step-card-img--1 { background: linear-gradient(135deg, #7aaa8c, #4a7a5e); }
-.hiw-step-card-img--2 { background: linear-gradient(135deg, #5F8F95, #3d6b70); }
+.hiw-step-card-img--2 { background: linear-gradient(135deg, var(--color-teal), var(--color-teal-muted)); }
 .hiw-step-card-img--3 { background: linear-gradient(135deg, #7a8aaa, #4a5a7a); }
 .hiw-step-card-img--4 { background: linear-gradient(135deg, #aa8a6a, #7a5a3a); }
 .hiw-step-card-img--5 { background: linear-gradient(135deg, #8aaa8c, #5a7a6e); }

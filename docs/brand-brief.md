@@ -44,20 +44,31 @@ The target aesthetic: **a respected local professional practice that genuinely c
 
 ## Color Direction
 
-### Canonical Palette
+### Canonical Palette — UPDATED 2026-04-29
 
-The following values are derived from the branding presentation image (the authoritative visual source). These supersede any conflicting hex values in written documents.
+**The deployed CSS values are now authoritative.** The values below from the original planning document have been superseded by the actual implementation. Use the deployed values for all future work.
 
+**Deployed (canonical — from `css/main.css`):**
 ```
-Navy (Primary):    #1F3754   — dominant anchor; headers, footers, primary CTAs, key text elements
-Teal (Secondary):  #70A598   — accent, icons, hover states, secondary buttons, supporting UI
-Cream (Base):      #F3EEEB   — primary background; section alternates; card backgrounds
-Slate (Neutral):   #4E5A64   — body text, secondary headings, muted labels
-Gold (Luxury):     #B89A5E   — logo accent, select decorative elements, star ratings, premium callouts
-White:             #FFFFFF   — text on dark backgrounds; card surfaces on cream backgrounds
+Navy (Primary):    #213A5A   — dominant anchor; headers, footers, primary CTAs, key text
+Teal (Secondary):  #5F8F95   — accent, icons, hover states, secondary buttons, supporting UI
+Ivory (Base):      #F6F2EB   — primary background; section alternates; card backgrounds
+Gold (Luxury):     #B89A5E   — logo accent, decorative elements, star ratings, premium callouts
+White:             #FFFFFF   — text on dark backgrounds; card surfaces
 ```
 
-**Note on the 5th palette color:** The branding presentation shows a fifth swatch that appears to be a dusty mauve/rose-gray (approximately #99677A). This color has not been confirmed with authority. Do not use it in web design until the exact hex value is confirmed by the brand owner. The five-color system above is sufficient for all web use cases.
+**Original planning values (do not use for new work):**
+```
+Navy:   #1F3754   ← superseded by #213A5A
+Teal:   #70A598   ← superseded by #5F8F95
+Cream:  #F3EEEB   ← superseded by #F6F2EB (renamed Ivory in deployed system)
+Slate:  #4E5A64   ← not used in deployed system; navy used for all text
+Gold:   #B89A5E   ← unchanged
+```
+
+**Note:** The Slate neutral (#4E5A64) from the original brief is not present in the deployed CSS. Navy (#213A5A) is used for both brand surfaces and primary text. The `--color-text` token equals `--color-navy` exactly — if navy ever needs to shift, text color must be updated separately.
+
+**Note on the 5th palette color:** The branding presentation shows a fifth swatch (dusty mauve/rose-gray, ~#99677A). This color is not implemented in the deployed CSS and should not be added without confirmation from the brand owner.
 
 ### How to Use Each Color
 

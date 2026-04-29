@@ -1,5 +1,38 @@
 # Asset Audit
 ## Trinity Home Care — Brand Asset Inventory & Readiness Review
+**Last updated:** 2026-04-29 (original: pre-build planning; this update reflects actual deployed assets)
+
+---
+
+## 2026-04-29 Update — Deployed Logo State
+
+The original audit (below) was written before the site was built and assumed the raw branding PNGs were the only logo assets. The site has since been built and the following production logo files now exist:
+
+| File | Status | Use in code |
+|---|---|---|
+| `logo-light2.png` | ✅ Active | Header (transparent/hero state), footer |
+| `logo-dark2.png` | ✅ Active | Header (scrolled ivory state) |
+| `logo-light.png` | ⚠️ Unused | Referenced in an old preload tag (bug — see functional review) |
+| `logo-dark.png` | ⚠️ Incorrectly used | Appears as a second favicon `<link>` override on root pages — should be removed |
+| `Trinity Home Care logo design favicon.png` | ✅ Active | All `<link rel="icon">` favicon tags |
+| `Trinity Home Care branding presentation.png` | Reference only | Not used in HTML |
+| Other branding presentation files (3+) | Reference only | Not used in HTML |
+
+**Critical bugs identified in 2026-04-29 functional review:**
+- `logo-dark.png` is incorrectly registered as a second favicon on all root HTML pages, overriding the correct icon-mark favicon with a full-width wordmark. Fix: remove the duplicate `<link rel="icon" href="assets/logo/logo-dark.png">` from root pages.
+- `index.html` preloads `logo-light.png` (unused) instead of `logo-light2.png` (active). Fix: update the preload href.
+
+**Canonical hex values (from deployed CSS — supersede all prior documents):**
+
+The deployed `css/main.css` uses these values. Use these as authoritative, not values from any planning document:
+```
+Navy:   #213A5A   (not #1F3754 as in brand-brief.md)
+Teal:   #5F8F95   (not #70A598 as in brand-brief.md)
+Ivory:  #F6F2EB   (not #F3EEEB as in brand-brief.md)
+Gold:   #B89A5E   (consistent)
+```
+
+---
 
 ---
 

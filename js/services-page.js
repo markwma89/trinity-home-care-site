@@ -1,7 +1,6 @@
 /* ===================================================================
    TRINITY HOME CARE — Service Page JavaScript
    Loaded only on services/*.html pages.
-   Responsibilities: FAQ accordion, CTA form validation.
    =================================================================== */
 
 (function () {
@@ -34,42 +33,6 @@
         panel.hidden = false;
       }
     });
-  });
-
-  /* -----------------------------------------------------------------
-     CTA Form validation
-     ----------------------------------------------------------------- */
-  const form = document.getElementById('cta-form');
-  if (!form) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    const requiredFields = form.querySelectorAll('[required]');
-    let firstInvalid     = null;
-
-    requiredFields.forEach((field) => {
-      field.style.borderColor = '';
-      if (!field.value.trim()) {
-        field.style.borderColor = 'rgba(224, 112, 112, 0.8)';
-        if (!firstInvalid) firstInvalid = field;
-      }
-    });
-
-    if (firstInvalid) {
-      firstInvalid.focus();
-      return;
-    }
-
-    const submitBtn = form.querySelector('[type="submit"]');
-    submitBtn.textContent = 'Sending…';
-    submitBtn.disabled    = true;
-
-    // Replace with real endpoint (Netlify, Formspree, etc.) when ready
-    setTimeout(() => {
-      submitBtn.textContent = 'Request Sent ✓';
-      submitBtn.style.background = 'var(--color-teal-muted, #4a7a7f)';
-    }, 1200);
   });
 
 }());

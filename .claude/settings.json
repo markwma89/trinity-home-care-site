@@ -1,7 +1,9 @@
 {
   "permissions": {
     "allow": [
-      "Bash(node --check *)"
+      "Bash(node --check *)",
+      "Bash(npx html-validate *)",
+      "Bash(npx lighthouse *)"
     ]
   }
 }

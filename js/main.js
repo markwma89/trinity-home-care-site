@@ -107,14 +107,13 @@
      ----------------------------------------------------------------- */
   function animateCounter(el, target, duration) {
     const start     = performance.now();
-    const startVal  = 0;
 
     function step(now) {
       const elapsed  = now - start;
       const progress = Math.min(elapsed / duration, 1);
       // ease-out cubic
       const eased    = 1 - Math.pow(1 - progress, 3);
-      const current  = Math.round(startVal + (target - startVal) * eased);
+      const current  = Math.round(target * eased);
       el.textContent = current.toLocaleString();
       if (progress < 1) requestAnimationFrame(step);
     }
@@ -316,7 +315,7 @@
       const isOpen = btn.getAttribute('aria-expanded') === 'true';
       btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
       const list = btn.nextElementSibling;
-      if (list) list.hidden = !isOpen; // hide the list when it was open, show it when it was closed
+      if (list) list.hidden = !isOpen;
     });
   });
 

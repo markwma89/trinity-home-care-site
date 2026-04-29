@@ -52,13 +52,13 @@
 
 ---
 
-## Follow-up Items
+## Follow-up Items (from 2026-04-12)
 
-| Item | Priority | Notes |
+| Item | Priority | Status |
 |------|----------|-------|
-| Remove original logo files with spaces in names | Low | Retain until client confirms no external references |
-| Archive unused logo variants (design.png, design (2).png, branding presentation.png) | Low | Move to `docs/assets/` or delete after review |
-| Replace Google review placeholder URL in testimonials CTA | High | `https://g.page/r/PLACEHOLDER/review` needs real shortlink |
+| Remove original logo files with spaces in names | Low | Open |
+| Archive unused logo variants (design.png, design (2).png, branding presentation.png) | Low | Open |
+| Replace Google review placeholder URL in testimonials CTA | High | Open — `https://g.page/r/PLACEHOLDER/review` needs real shortlink |
 
 ---
 
@@ -101,3 +101,41 @@
 - Now: `position: absolute; top: 100%` dropdown panel anchored to header bottom
 - Includes `opacity + transform + visibility` transition (no `display` toggle)
 - Aria-managed: `aria-expanded`, `aria-hidden`, keyboard Escape key support, focus management
+
+---
+
+## 2026-04-29 — Full-Site Review Documentation
+
+**Driven by:** Full 22-page code review (see `docs/final-review-report.md`)
+
+**No code changes applied** — this session was documentation and review only.
+
+### Docs Created/Updated
+
+| File | Action |
+|---|---|
+| `docs/review-duplicates.md` | Created — 11 duplicate code findings |
+| `docs/review-style.md` | Created — 7 code style + 12 UX copy findings |
+| `docs/review-functional.md` | Created — 2 critical, 3 high, 4 medium functional findings |
+| `docs/architecture-review-notes.md` | Replaced — extended to full 22-page site review |
+| `docs/code-review-summary.md` | Replaced — 27+ findings across all categories |
+| `docs/refactor-plan.md` | Replaced — phased 5-group execution plan |
+| `docs/asset-audit.md` | Updated — actual deployed logo state, canonical hex values |
+| `docs/brand-brief.md` | Updated — deployed CSS hex values corrected as canonical |
+| `docs/final-review-report.md` | Created — master summary report |
+| `.claude/settings.json` | Updated — added npx html-validate and lighthouse to allowlist |
+
+### Key Findings
+
+**Critical (requires immediate action before site takes traffic):**
+- All forms send zero data — no backend wired
+- `how-it-works.js` targets `#cta-form` which doesn't exist on the page
+- Contradictory star ratings (3.3 vs 4.9) on homepage
+
+**High (fix this sprint):**
+- Live placeholder Google review URL in production
+- careers.html active nav state broken (CSS bug)
+- Dead form handler code on all 10 service pages
+- Wrong logo file preloaded in `<head>`
+- TELECOMMUTE in careers JSON-LD for in-person caregiving role
+- Thank-you pages not noindex
