@@ -1,0 +1,266 @@
+/* ===================================================================
+   TRINITY HOME CARE — About Page Styles
+   Extends main.css. Loaded only on about.html.
+   =================================================================== */
+
+/* -------------------------------------------------------------------
+   Active nav link
+   ------------------------------------------------------------------- */
+.nav-link[aria-current="page"]::after {
+  transform: scaleX(1);
+}
+.site-header.is-scrolled .nav-link[aria-current="page"] {
+  color: var(--color-navy);
+}
+
+/* -------------------------------------------------------------------
+   Page Hero — inner page (static image, no video)
+   ------------------------------------------------------------------- */
+.section-hero--page {
+  background-image: url('../assets/images/supporting/caregiver-holding-senior-hand.jpg');
+  background-size: cover;
+  background-position: center 30%;
+  background-repeat: no-repeat;
+  min-height: 75vh;
+  min-height: 75svh;
+}
+
+@media (max-width: 767px) {
+  .section-hero--page {
+    min-height: 80vh;
+    min-height: 80svh;
+    background-position: center 20%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .section-hero--page {
+    background-image: url('../assets/images/supporting/caregiver-holding-senior-hand.jpg');
+    background-size: cover;
+    background-position: center 30%;
+  }
+}
+
+/* -------------------------------------------------------------------
+   Our Story Section
+   ------------------------------------------------------------------- */
+.section-about-story {
+  background: var(--color-ivory);
+}
+
+.about-story-text {
+  display: flex;
+  flex-direction: column;
+  gap: 1.125rem;
+  margin-top: 1.5rem;
+}
+
+.about-story-text p {
+  font-size: 1.0625rem;
+  line-height: 1.78;
+  color: var(--color-text-sub);
+  max-width: 52ch;
+}
+
+/* -------------------------------------------------------------------
+   Mission & Values Section
+   ------------------------------------------------------------------- */
+.section-values {
+  background: var(--color-white);
+}
+
+.values-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+@media (min-width: 640px)  { .values-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1024px) { .values-grid { grid-template-columns: repeat(3, 1fr); } }
+
+.value-card {
+  background: var(--color-ivory);
+  border-radius: var(--radius-md);
+  padding: 2.5rem;
+  border-top: 3px solid;
+  border-image: linear-gradient(90deg, var(--color-gold) 0%, var(--color-teal) 100%) 1;
+  box-shadow: var(--shadow-card);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: transform var(--t-base), box-shadow var(--t-base);
+  cursor: default;
+}
+.value-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-card-hover);
+}
+
+.value-card-icon {
+  width: 56px;
+  height: 56px;
+  background: var(--color-navy);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.value-card-icon svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-gold);
+}
+
+.value-card-title {
+  font-family: var(--font-body);
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+.value-card-text {
+  font-size: 0.9375rem;
+  line-height: 1.68;
+  color: var(--color-text-sub);
+  max-width: none;
+  margin: 0;
+}
+
+/* -------------------------------------------------------------------
+   Stats Strip — override homepage-specific overlap effects
+   ------------------------------------------------------------------- */
+.section-stats--about {
+  padding-bottom: 3.5rem;
+}
+.section-stats--about::before {
+  display: none;
+}
+
+/* -------------------------------------------------------------------
+   Caregiver Standards Section
+   ------------------------------------------------------------------- */
+.section-about-standards {
+  background: var(--color-ivory);
+}
+
+.about-standards-intro {
+  font-size: 1.0625rem;
+  line-height: 1.72;
+  color: var(--color-text-sub);
+  max-width: 50ch;
+  margin-top: 1.5rem;
+  margin-bottom: 1.75rem;
+}
+
+.standards-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 1.75rem;
+}
+
+.standards-item {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--color-ivory-dark);
+}
+.standards-item:first-child { border-top: 1px solid var(--color-ivory-dark); }
+
+.standards-num {
+  font-family: var(--font-heading);
+  font-size: 1.375rem;
+  font-weight: 400;
+  color: var(--color-gold);
+  flex-shrink: 0;
+  line-height: 1.4;
+  min-width: 32px;
+}
+
+.standards-content h3 {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  letter-spacing: 0;
+  line-height: 1.3;
+  margin-bottom: 0.25rem;
+}
+.standards-content p {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--color-text-sub);
+  max-width: none;
+  margin: 0;
+}
+
+.standards-footer-note {
+  font-size: 0.9375rem;
+  font-style: italic;
+  color: var(--color-text-sub);
+  line-height: 1.65;
+  padding: 1rem 1.25rem;
+  background: rgba(184, 154, 94, 0.08);
+  border-left: 3px solid var(--color-gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  max-width: none;
+}
+
+/* -------------------------------------------------------------------
+   Local Commitment Section
+   ------------------------------------------------------------------- */
+.section-about-local {
+  background: var(--color-white);
+}
+
+.local-features {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  margin-top: 3.5rem;
+}
+@media (min-width: 640px)  { .local-features { grid-template-columns: repeat(2, 1fr); gap: 2.5rem; } }
+@media (min-width: 1024px) { .local-features { grid-template-columns: repeat(3, 1fr); gap: 3rem; } }
+
+.local-feature {
+  display: flex;
+  flex-direction: column;
+  gap: 0.875rem;
+  align-items: flex-start;
+}
+
+.local-feature-icon {
+  width: 52px;
+  height: 52px;
+  background: var(--color-navy);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+.local-feature-icon svg {
+  width: 22px;
+  height: 22px;
+  color: var(--color-teal-light);
+}
+
+.local-feature h3 {
+  font-family: var(--font-body);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--color-navy);
+  letter-spacing: 0;
+  line-height: 1.3;
+}
+
+.local-feature p {
+  font-size: 0.9375rem;
+  line-height: 1.68;
+  color: var(--color-text-sub);
+  max-width: 36ch;
+  margin: 0;
+}
