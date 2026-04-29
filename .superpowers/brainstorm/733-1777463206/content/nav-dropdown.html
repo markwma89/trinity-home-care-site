@@ -1,0 +1,60 @@
+<h2>How should the Services dropdown be organized?</h2>
+<p class="subtitle">The dropdown appears on hover/tap over "Services" in the main nav. Pick the structure that feels right.</p>
+
+<div class="cards">
+
+  <div class="card" data-choice="A" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f8f6f2; padding:16px; min-height:160px; display:flex; align-items:flex-start; justify-content:center;">
+      <div style="width:200px; background:#fff; border:1px solid #ddd; border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.12); font-size:12px; overflow:hidden;">
+        <div style="background:#213A5A; color:#fff; padding:8px 14px; font-weight:600; font-size:11px; letter-spacing:0.05em;">SERVICES</div>
+        <div style="padding:6px 0;">
+          <div style="padding:6px 14px; color:#213A5A; border-bottom:1px solid #f0ede8;">All Services →</div>
+          <div style="padding:6px 14px; color:#444;">Personal Care</div>
+          <div style="padding:6px 14px; color:#444;">Companion Care</div>
+          <div style="padding:6px 14px; color:#444;">Medication Reminders</div>
+          <div style="padding:6px 14px; color:#444;">Meal Preparation</div>
+          <div style="padding:6px 14px; color:#444;">Light Housekeeping</div>
+          <div style="padding:6px 14px; color:#444;">Mobility &amp; Safety</div>
+          <div style="padding:6px 14px; color:#444;">Dementia Care</div>
+          <div style="padding:6px 14px; color:#444;">Respite Care</div>
+          <div style="padding:6px 14px; color:#444;">Post-Hospital Recovery</div>
+          <div style="padding:6px 14px; color:#444;">Veteran Care</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Simple flat list</h3>
+      <p>"All Services" link at top, then all 10 alphabetically (or as listed). Clean, minimal. Works well on mobile.</p>
+    </div>
+  </div>
+
+  <div class="card" data-choice="B" onclick="toggleSelect(this)">
+    <div class="card-image" style="background:#f8f6f2; padding:16px; min-height:160px; display:flex; align-items:flex-start; justify-content:center;">
+      <div style="width:240px; background:#fff; border:1px solid #ddd; border-radius:6px; box-shadow:0 4px 16px rgba(0,0,0,0.12); font-size:12px; overflow:hidden;">
+        <div style="background:#213A5A; color:#fff; padding:8px 14px; font-weight:600; font-size:11px; letter-spacing:0.05em;">SERVICES</div>
+        <div style="padding:6px 0;">
+          <div style="padding:6px 14px; color:#213A5A; border-bottom:1px solid #f0ede8;">All Services →</div>
+          <div style="padding:5px 14px 2px; font-size:10px; color:#5F8F95; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;">Core Services</div>
+          <div style="padding:4px 14px 4px 20px; color:#444;">Personal Care</div>
+          <div style="padding:4px 14px 4px 20px; color:#444;">Companion Care</div>
+          <div style="padding:4px 14px 4px 20px; color:#444;">Medication Reminders</div>
+          <div style="padding:4px 14px 4px 20px; color:#444;">Meal Preparation</div>
+          <div style="padding:4px 14px 4px 20px; color:#444;">Light Housekeeping</div>
+          <div style="padding:4px 14px 4px 20px; color:#444; border-bottom:1px solid #f0ede8;">Mobility &amp; Safety</div>
+          <div style="padding:5px 14px 2px; font-size:10px; color:#B89A5E; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;">Specialized Care</div>
+          <div style="padding:4px 14px 4px 20px; color:#444;">Dementia Care</div>
+          <div style="padding:4px 14px 4px 20px; color:#444;">Respite Care</div>
+          <div style="padding:4px 14px 4px 20px; color:#444;">Post-Hospital Recovery</div>
+          <div style="padding:4px 14px 4px 20px; color:#444;">Veteran Care</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Grouped with labels</h3>
+      <p>"All Services" at top, then two labeled groups: Core Services (teal label) and Specialized Care (gold label). Mirrors the existing services.html structure.</p>
+    </div>
+  </div>
+
+</div>
+
+<p class="subtitle" style="margin-top:24px;">The mobile nav will show a tap-to-expand accordion version of whichever structure you pick. Click to select, then confirm in the terminal.</p>
