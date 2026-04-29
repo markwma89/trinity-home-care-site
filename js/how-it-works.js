@@ -151,7 +151,7 @@
       : `<span class="hiw-detail-next hiw-detail-next--end">You’re all set — <a href="#cta-form" class="hiw-detail-cta-link">start the conversation</a>.</span>`;
 
     detailPanel.innerHTML = `
-      <div class="hiw-detail-inner">
+      <div class="hiw-detail-inner" tabindex="-1">
         <div class="hiw-detail-copy">
           <div class="hiw-detail-num" aria-hidden="true">${step.num}</div>
           <h2 class="hiw-detail-heading">${step.title} — <em>${step.subtitle}</em></h2>
@@ -178,6 +178,21 @@
     detailPanel.querySelector('.hiw-detail-next[data-index]')
       ?.addEventListener('click', e =>
         activateStep(parseInt(e.currentTarget.dataset.index, 10), true));
+
+    /* Fix 3 — delegated smooth-scroll for injected #cta-form anchor */
+    detailPanel.querySelector('a[href="#cta-form"]')
+      ?.addEventListener('click', e => {
+        e.preventDefault();
+        const target = document.getElementById('cta-form');
+        if (!target) return;
+        const offset = (header?.offsetHeight ?? 80) + 16;
+        const top = target.getBoundingClientRect().top + window.scrollY - offset;
+        if (prefersReducedMotion) {
+          window.scrollTo({ top });
+        } else {
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
   }
 
   /* -----------------------------------------------------------------
@@ -185,9 +200,10 @@
      optionally smooth-scrolls to the detail section.
      ----------------------------------------------------------------- */
   function activateStep(index, shouldScroll) {
+    if (!Number.isFinite(index) || index < 0 || index >= STEPS.length) return;
     stepCards.forEach((c, i) => {
       c.classList.toggle('is-active', i === index);
-      c.setAttribute('aria-selected', i === index ? 'true' : 'false');
+      c.setAttribute('aria-pressed', i === index ? 'true' : 'false');
     });
     dots.forEach((d, i) => {
       d.classList.toggle('is-active', i === index);
@@ -195,6 +211,12 @@
     });
 
     renderStep(index);
+
+    /* Fix 1 — restore focus to detail panel after Prev/Next navigation */
+    if (shouldScroll) {
+      const inner = detailPanel?.querySelector('.hiw-detail-inner');
+      if (inner) { inner.setAttribute('tabindex', '-1'); inner.focus(); }
+    }
 
     if (shouldScroll) {
       const target = document.getElementById('step-detail');
@@ -265,14 +287,16 @@
     e.preventDefault();
     const required = this.querySelectorAll('[required]');
     let isValid = true;
+    let firstInvalid = null;
     required.forEach(field => {
       field.style.borderColor = '';
       if (!field.value.trim()) {
         isValid = false;
         field.style.borderColor = 'rgba(224,112,112,0.8)';
-        if (isValid === false && field === required[0]) field.focus();
+        if (!firstInvalid) firstInvalid = field;
       }
     });
+    if (firstInvalid) firstInvalid.focus();
     if (!isValid) return;
     const btn = this.querySelector('[type="submit"]');
     btn.textContent = 'Sending…';
