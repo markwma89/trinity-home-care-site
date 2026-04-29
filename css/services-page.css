@@ -4,6 +4,15 @@
    All rules scoped to service page sections — no changes to main.css.
    =================================================================== */
 
+/* ── Hero image fill ──────────────────────────────────────────────── */
+.section-hero--page {
+  min-height: 62vh;
+  min-height: 62svh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 /* ── Section base backgrounds ─────────────────────────────────────── */
 .section-service-what,
 .section-service-signs,
