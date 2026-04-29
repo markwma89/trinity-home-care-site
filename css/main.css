@@ -2077,7 +2077,6 @@ em { font-style: italic; }
   z-index: 200;
 }
 
-.nav-has-dropdown:hover .nav-dropdown,
 .nav-has-dropdown.is-open .nav-dropdown {
   opacity: 1;
   visibility: visible;
