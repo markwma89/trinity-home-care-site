@@ -1,0 +1,332 @@
+/* ===================================================================
+   TRINITY HOME CARE — Service Page Styles
+   Loaded only on services/*.html pages.
+   All rules scoped to service page sections — no changes to main.css.
+   =================================================================== */
+
+/* ── Section base backgrounds ─────────────────────────────────────── */
+.section-service-what,
+.section-service-signs,
+.section-service-testimonial,
+.section-service-faq {
+  background: var(--color-white);
+}
+
+.section-service-who,
+.section-service-day,
+.section-service-related {
+  background: var(--color-ivory);
+}
+
+/* ── §2 What We Provide ───────────────────────────────────────────── */
+.service-what-layout {
+  display: flex;
+  gap: 3rem;
+  align-items: flex-start;
+}
+.service-what-copy { flex: 3; }
+.service-what-photo { flex: 2; }
+.service-what-photo img {
+  width: 100%;
+  height: 260px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-photo);
+}
+
+.service-callout {
+  background: var(--color-white);
+  border-left: 3px solid var(--color-teal);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  box-shadow: var(--shadow-card);
+  padding: 1.25rem 1.5rem;
+  margin-top: 1.5rem;
+}
+.service-callout-label {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  margin-bottom: 0.75rem;
+}
+.service-callout-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.service-callout-item {
+  font-size: 0.9375rem;
+  color: var(--color-text-sub);
+  line-height: 1.5;
+}
+.service-callout-item::before {
+  content: '✓  ';
+  color: var(--color-teal);
+  font-weight: 600;
+}
+
+/* ── §3 Who It Helps ──────────────────────────────────────────────── */
+.service-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1.25rem;
+}
+.service-pill {
+  display: inline-block;
+  background: var(--color-white);
+  border: 1px solid var(--color-ivory-dark);
+  border-radius: 20px;
+  padding: 5px 14px;
+  font-size: 0.875rem;
+  color: var(--color-text-sub);
+  white-space: nowrap;
+}
+
+/* ── §4 Signs ─────────────────────────────────────────────────────── */
+.service-signs-list {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+.service-signs-list li {
+  padding-left: 1.25rem;
+  position: relative;
+  font-size: 0.9375rem;
+  color: var(--color-text-sub);
+  line-height: 1.55;
+}
+.service-signs-list li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-teal);
+  font-weight: 700;
+}
+
+/* ── §5 Day in the Life ───────────────────────────────────────────── */
+.service-day-layout {
+  display: flex;
+  gap: 3rem;
+  align-items: center;
+}
+.service-day-photo { flex: 2; }
+.service-day-photo img {
+  width: 100%;
+  height: 240px;
+  object-fit: cover;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-photo);
+}
+.service-day-copy {
+  flex: 3;
+  font-style: italic;
+  font-size: 1.0625rem;
+  color: var(--color-text-sub);
+  line-height: 1.7;
+}
+
+/* ── §6 Testimonial ───────────────────────────────────────────────── */
+.service-testimonial-wrap {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.service-testimonial-card {
+  background: var(--color-white);
+  border-top: 3px solid var(--color-gold);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 2rem 2.25rem;
+}
+.service-testimonial-stars {
+  color: var(--color-gold);
+  font-size: 1rem;
+  letter-spacing: 2px;
+  margin-bottom: 1rem;
+}
+.service-testimonial-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1875rem;
+  color: var(--color-navy);
+  line-height: 1.65;
+  margin-bottom: 1rem;
+}
+.service-testimonial-attr {
+  font-size: 0.875rem;
+  color: var(--color-text-muted);
+}
+
+/* ── §7 Often Paired With ─────────────────────────────────────────── */
+.service-related-strip {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+.service-related-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  background: var(--color-white);
+  border: 1px solid var(--color-teal);
+  border-radius: var(--radius-md);
+  padding: 0.75rem 1.25rem;
+  color: var(--color-teal);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: background 150ms, color 150ms;
+}
+.service-related-card:hover {
+  background: var(--color-teal);
+  color: var(--color-white);
+}
+
+/* ── §8 FAQ Accordion ─────────────────────────────────────────────── */
+.service-faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+.service-faq-item {
+  border: 1px solid var(--color-ivory-dark);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.service-faq-btn {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  background: var(--color-white);
+  border: none;
+  padding: 1.125rem 1.25rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--color-navy);
+  cursor: pointer;
+  text-align: left;
+}
+.service-faq-btn:hover { background: var(--color-ivory); }
+.service-faq-chevron {
+  color: var(--color-teal);
+  font-size: 1.125rem;
+  font-style: normal;
+  flex-shrink: 0;
+  transition: transform 200ms;
+}
+.service-faq-btn[aria-expanded="true"] .service-faq-chevron {
+  transform: rotate(90deg);
+}
+.service-faq-panel {
+  padding: 0 1.25rem 1.125rem;
+  background: var(--color-white);
+}
+.service-faq-panel p {
+  font-size: 0.9375rem;
+  color: var(--color-text-sub);
+  line-height: 1.65;
+  margin: 0;
+}
+.service-faq-footer {
+  margin-top: 1.25rem;
+  font-size: 0.875rem;
+}
+.service-faq-footer a {
+  color: var(--color-teal);
+  font-weight: 500;
+}
+
+/* ── §9 CTA ───────────────────────────────────────────────────────── */
+.section-service-cta {
+  background: var(--color-navy);
+  clip-path: polygon(0 32px, 100% 0, 100% 100%, 0 100%);
+  margin-top: -32px;
+  padding-top: calc(3rem + 32px);
+  padding-bottom: 4rem;
+}
+.service-cta-phone {
+  display: block;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  text-decoration: none;
+  margin: 1rem 0 2rem;
+  letter-spacing: -0.01em;
+}
+.service-cta-phone:hover { color: var(--color-white); }
+
+.service-cta-form {
+  background: rgba(255,255,255,0.07);
+  border-radius: var(--radius-md);
+  padding: 2rem;
+  max-width: 560px;
+}
+.service-cta-form .form-row {
+  display: flex;
+  gap: 1rem;
+}
+.service-cta-form .form-row .form-group { flex: 1; }
+.service-cta-form .form-group { margin-bottom: 1rem; }
+.service-cta-form label {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: rgba(255,255,255,0.75);
+  margin-bottom: 0.375rem;
+}
+.service-cta-form input,
+.service-cta-form select {
+  width: 100%;
+  padding: 0.625rem 0.875rem;
+  background: rgba(255,255,255,0.1);
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: var(--radius-sm);
+  color: var(--color-white);
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+}
+.service-cta-form input::placeholder { color: rgba(255,255,255,0.4); }
+.service-cta-form select option { color: var(--color-navy); background: var(--color-white); }
+.service-cta-disclaimer {
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.5);
+  margin-top: 0.75rem;
+}
+
+/* ── Mobile overrides ─────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .service-what-layout,
+  .service-day-layout {
+    flex-direction: column;
+  }
+  .service-what-photo,
+  .service-day-photo { order: 2; }
+  .service-what-copy,
+  .service-day-copy  { order: 1; }
+
+  .service-what-photo img,
+  .service-day-photo img {
+    height: 200px;
+  }
+
+  .service-related-strip { flex-direction: column; }
+  .service-cta-form .form-row { flex-direction: column; }
+  .service-cta-form .form-row .form-group { flex: unset; }
+}
+
+@media (max-width: 480px) {
+  .service-pills { gap: 0.375rem; }
+  .service-pill  { font-size: 0.8125rem; padding: 4px 11px; }
+}
