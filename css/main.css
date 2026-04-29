@@ -2122,28 +2122,29 @@ em { font-style: italic; }
 
 .mobile-nav-trigger {
   display: flex;
-  width: 100%;
-  justify-content: space-between;
   align-items: center;
+  width: 100%;
   background: none;
   border: none;
   cursor: pointer;
   font: inherit;
-  padding: 0;
   color: inherit;
   text-align: left;
 }
 .mobile-chevron {
   transition: transform 200ms;
   font-style: normal;
+  flex-shrink: 0;
+  margin-left: auto;
+  padding-left: 0.75rem;
 }
 .mobile-nav-trigger[aria-expanded="true"] .mobile-chevron { transform: rotate(90deg); }
 
 .mobile-nav-dropdown {
   list-style: none;
   margin: 4px 0 8px 0;
-  padding: 0 0 0 12px;
-  border-left: 2px solid var(--color-ivory-dark);
+  padding: 0 1.5rem 0 2.25rem;
+  border-left: none;
 }
 .mobile-nav-dropdown li a {
   display: block;
