@@ -190,11 +190,10 @@
     submitBtn.textContent = 'Sending\u2026';
     submitBtn.disabled = true;
 
-    // Replace this block when wiring to a real endpoint (Netlify, Formspree, etc.)
+    // Replace setTimeout with real fetch/POST when wiring to a backend or form service.
     setTimeout(() => {
-      submitBtn.textContent = 'Request Sent';
-      submitBtn.style.background = 'var(--color-teal-muted)';
-    }, 1200);
+      window.location.href = 'thank-you.html';
+    }, 800);
   });
 
   /* -----------------------------------------------------------------

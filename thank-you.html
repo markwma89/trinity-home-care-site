@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thank You | Trinity Home Care — Pittsburgh, PA</title>
+  <meta name="description" content="Thank you for contacting Trinity Home Care. Your free consultation request has been received and a member of our team will be in touch shortly.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="canonical" href="https://trinityhomecarellc.com/thank-you">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/Trinity Home Care logo design favicon.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/logo/Trinity Home Care logo design favicon.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/logo/Trinity Home Care logo design favicon.png">
+  <link rel="icon" type="image/png" href="assets/logo/logo-dark.png">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="css/main.css">
+
+  <style>
+    /* Thank-you page — scoped styles */
+    .ty-hero {
+      background: var(--color-navy);
+      padding: 8rem 0 5rem;
+      position: relative;
+      text-align: center;
+    }
+    .ty-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 60px;
+      background: var(--color-ivory);
+      clip-path: polygon(0 100%, 100% 0, 100% 100%);
+    }
+    .ty-check {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 72px;
+      height: 72px;
+      border-radius: 50%;
+      background: rgba(95, 143, 149, 0.18);
+      border: 2px solid var(--color-teal);
+      margin-bottom: 1.75rem;
+    }
+    .ty-check svg {
+      width: 34px;
+      height: 34px;
+      stroke: var(--color-teal);
+    }
+    .ty-hero h1 {
+      font-family: var(--font-heading);
+      font-size: clamp(2.25rem, 5vw, 3.25rem);
+      font-weight: 400;
+      color: var(--color-white);
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      margin: 0 0 1rem;
+    }
+    .ty-hero p {
+      font-size: 1.0625rem;
+      color: rgba(255,255,255,0.72);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+    .ty-body {
+      background: var(--color-ivory);
+      padding: 4.5rem 0 5.5rem;
+    }
+    .ty-container {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 0 var(--space-md);
+    }
+
+    /* What Happens Next steps */
+    .ty-steps {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 3rem;
+    }
+    .ty-step {
+      display: flex;
+      gap: 1.25rem;
+      align-items: flex-start;
+      margin-bottom: 1.75rem;
+    }
+    .ty-step-num {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: var(--color-navy);
+      color: var(--color-white);
+      font-family: var(--font-heading);
+      font-size: 1.0625rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 0.125rem;
+    }
+    .ty-step-text h3 {
+      font-family: var(--font-body);
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-navy);
+      margin: 0 0 0.25rem;
+    }
+    .ty-step-text p {
+      font-size: 0.9375rem;
+      color: var(--color-text-sub);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    /* Section label */
+    .ty-section-label {
+      font-family: var(--font-body);
+      font-size: 0.6875rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--color-teal);
+      margin-bottom: 1rem;
+    }
+    .ty-section-heading {
+      font-family: var(--font-heading);
+      font-size: clamp(1.5rem, 3vw, 2rem);
+      font-weight: 400;
+      color: var(--color-navy);
+      letter-spacing: -0.01em;
+      margin: 0 0 2rem;
+    }
+    .ty-divider {
+      border: none;
+      border-top: 1px solid var(--color-ivory-dark);
+      margin: 3rem 0;
+    }
+
+    /* Immediate assistance card */
+    .ty-assist-card {
+      background: var(--color-white);
+      border-radius: var(--radius-md);
+      padding: 2rem 2.25rem;
+      box-shadow: 0 2px 16px rgba(33,58,90,0.07);
+    }
+    .ty-assist-card p {
+      font-size: 0.9375rem;
+      color: var(--color-text-sub);
+      line-height: 1.7;
+      margin-bottom: 1.25rem;
+    }
+    .ty-assist-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.625rem;
+    }
+    .ty-assist-links a {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9375rem;
+      font-weight: 600;
+      color: var(--color-navy);
+      text-decoration: none;
+    }
+    .ty-assist-links a:hover { color: var(--color-teal); }
+    .ty-assist-links svg {
+      width: 16px; height: 16px;
+      stroke: var(--color-teal);
+      flex-shrink: 0;
+    }
+
+    /* Note section */
+    .ty-note {
+      border-left: 3px solid var(--color-gold);
+      padding-left: 1.25rem;
+      margin-top: 2.5rem;
+    }
+    .ty-note p {
+      font-size: 0.9375rem;
+      color: var(--color-text-sub);
+      line-height: 1.75;
+      margin: 0;
+      font-style: italic;
+    }
+
+    /* Return home CTA */
+    .ty-cta {
+      text-align: center;
+      margin-top: 3rem;
+    }
+    .ty-cta .btn {
+      padding: 0.9375rem 2.5rem;
+      font-size: 1rem;
+    }
+  </style>
+
+  <noscript>
+    <style>[data-animate] { opacity: 1 !important; transform: none !important; }</style>
+  </noscript>
+</head>
+<body>
+
+  <a href="#main" class="skip-link">Skip to main content</a>
+
+  <!-- ================================================================
+       HEADER / NAVIGATION
+       ================================================================ -->
+  <header id="site-header" class="site-header" role="banner">
+    <div class="container">
+      <nav class="nav-container" role="navigation" aria-label="Main navigation">
+
+        <a href="index.html" class="nav-logo" aria-label="Trinity Home Care — return to homepage">
+          <div class="logo-swap">
+            <img src="assets/logo/logo-light2.png"
+                 alt="Trinity Home Care"
+                 class="logo-img logo-img--light"
+                 loading="eager">
+            <img src="assets/logo/logo-dark2.png"
+                 alt=""
+                 class="logo-img logo-img--dark"
+                 loading="eager"
+                 aria-hidden="true">
+          </div>
+        </a>
+
+        <!-- Desktop navigation -->
+        <ul class="nav-links" role="list">
+          <li><a href="index.html" class="nav-link">Home</a></li>
+          <li class="nav-item nav-has-dropdown">
+            <button type="button" class="nav-link nav-dropdown-trigger"
+                    aria-haspopup="true" aria-expanded="false">
+              Services <span class="nav-chevron" aria-hidden="true">›</span>
+            </button>
+            <ul class="nav-dropdown" role="menu" aria-label="Services menu">
+              <li role="presentation">
+                <a href="services.html" class="nav-dropdown-all" role="menuitem">All Services →</a>
+              </li>
+              <li role="presentation" class="nav-dropdown-group-label nav-dropdown-group-label--teal" aria-hidden="true">Core Services</li>
+              <li role="presentation"><a href="services/personal-care.html" role="menuitem">Personal Care</a></li>
+              <li role="presentation"><a href="services/companion-care.html" role="menuitem">Companion Care</a></li>
+              <li role="presentation"><a href="services/medication-reminders.html" role="menuitem">Medication Reminders</a></li>
+              <li role="presentation"><a href="services/meal-preparation.html" role="menuitem">Meal Preparation</a></li>
+              <li role="presentation"><a href="services/light-housekeeping.html" role="menuitem">Light Housekeeping</a></li>
+              <li role="presentation"><a href="services/mobility-safety-support.html" role="menuitem">Mobility &amp; Safety Support</a></li>
+              <li role="presentation" class="nav-dropdown-group-label nav-dropdown-group-label--gold" aria-hidden="true">Specialized Care</li>
+              <li role="presentation"><a href="services/dementia-alzheimers-care.html" role="menuitem">Dementia &amp; Alzheimer's Care</a></li>
+              <li role="presentation"><a href="services/respite-care.html" role="menuitem">Respite Care</a></li>
+              <li role="presentation"><a href="services/post-hospital-recovery.html" role="menuitem">Post-Hospital Recovery</a></li>
+              <li role="presentation"><a href="services/veteran-care.html" role="menuitem">Veteran Care</a></li>
+            </ul>
+          </li>
+          <li><a href="about.html"              class="nav-link">About</a></li>
+          <li><a href="how-it-works.html"        class="nav-link">How It Works</a></li>
+          <li><a href="index.html#testimonials"  class="nav-link">Reviews</a></li>
+          <li><a href="contact.html"             class="nav-link">Contact</a></li>
+        </ul>
+
+        <!-- Desktop right group -->
+        <div class="nav-cta-group">
+          <a href="tel:4123453721" class="nav-phone" aria-label="Call 412-345-3721">
+            412-345-3721
+          </a>
+          <a href="contact.html" class="btn btn-teal nav-cta-btn">
+            Free Consultation
+          </a>
+        </div>
+
+        <!-- Hamburger -->
+        <button
+          id="nav-hamburger"
+          class="nav-hamburger"
+          type="button"
+          aria-label="Open navigation menu"
+          aria-expanded="false"
+          aria-controls="nav-mobile">
+          <span class="hamburger-bar" aria-hidden="true"></span>
+          <span class="hamburger-bar" aria-hidden="true"></span>
+          <span class="hamburger-bar" aria-hidden="true"></span>
+        </button>
+
+      </nav>
+    </div>
+
+    <!-- Mobile dropdown navigation -->
+    <nav id="nav-mobile" class="nav-mobile" aria-label="Mobile navigation" aria-hidden="true">
+      <a href="index.html" class="nav-mobile-link">Home</a>
+      <button class="nav-mobile-link mobile-nav-trigger" aria-expanded="false">
+        Services <span class="mobile-chevron" aria-hidden="true">›</span>
+      </button>
+      <ul class="mobile-nav-dropdown" hidden>
+        <li><a href="services.html" class="mobile-nav-dropdown-all">All Services →</a></li>
+        <li><span class="mobile-nav-group-label mobile-nav-group-label--teal">Core Services</span></li>
+        <li><a href="services/personal-care.html">Personal Care</a></li>
+        <li><a href="services/companion-care.html">Companion Care</a></li>
+        <li><a href="services/medication-reminders.html">Medication Reminders</a></li>
+        <li><a href="services/meal-preparation.html">Meal Preparation</a></li>
+        <li><a href="services/light-housekeeping.html">Light Housekeeping</a></li>
+        <li><a href="services/mobility-safety-support.html">Mobility &amp; Safety Support</a></li>
+        <li><span class="mobile-nav-group-label mobile-nav-group-label--gold">Specialized Care</span></li>
+        <li><a href="services/dementia-alzheimers-care.html">Dementia &amp; Alzheimer's Care</a></li>
+        <li><a href="services/respite-care.html">Respite Care</a></li>
+        <li><a href="services/post-hospital-recovery.html">Post-Hospital Recovery</a></li>
+        <li><a href="services/veteran-care.html">Veteran Care</a></li>
+      </ul>
+      <a href="about.html"              class="nav-mobile-link">About</a>
+      <a href="how-it-works.html"        class="nav-mobile-link">How It Works</a>
+      <a href="index.html#testimonials"  class="nav-mobile-link">Reviews</a>
+      <a href="contact.html"             class="nav-mobile-link">Contact</a>
+      <div class="nav-mobile-ctas">
+        <a href="tel:4123453721" class="btn btn-secondary">Call 412-345-3721</a>
+        <a href="contact.html"   class="btn btn-primary">Schedule a Consultation</a>
+      </div>
+    </nav>
+
+  </header>
+
+  <!-- ================================================================
+       MAIN CONTENT
+       ================================================================ -->
+  <main id="main">
+
+    <!-- HERO -->
+    <div class="ty-hero">
+      <div class="container">
+        <div class="ty-check" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"/>
+          </svg>
+        </div>
+        <h1>Thank You for Reaching Out</h1>
+        <p>Your free consultation request has been received. A member of the Trinity Home Care team will be in touch with you shortly.</p>
+      </div>
+    </div>
+
+    <!-- BODY -->
+    <div class="ty-body">
+      <div class="ty-container">
+
+        <!-- What Happens Next -->
+        <p class="ty-section-label" data-animate>What to expect</p>
+        <h2 class="ty-section-heading" data-animate>Here's What Happens Next</h2>
+
+        <ol class="ty-steps" aria-label="Next steps">
+          <li class="ty-step" data-animate style="--animate-delay: 0.05s">
+            <span class="ty-step-num" aria-hidden="true">1</span>
+            <div class="ty-step-text">
+              <h3>We Review Your Request</h3>
+              <p>A member of our team personally reviews every inquiry — no automated queues, no call centers.</p>
+            </div>
+          </li>
+          <li class="ty-step" data-animate style="--animate-delay: 0.1s">
+            <span class="ty-step-num" aria-hidden="true">2</span>
+            <div class="ty-step-text">
+              <h3>We Reach Out to You</h3>
+              <p>We'll follow up to confirm your contact details, learn more about your care needs, and answer any questions you have.</p>
+            </div>
+          </li>
+          <li class="ty-step" data-animate style="--animate-delay: 0.15s">
+            <span class="ty-step-num" aria-hidden="true">3</span>
+            <div class="ty-step-text">
+              <h3>We Talk Through Next Steps</h3>
+              <p>Together we'll discuss scheduling, care options, and the best path forward — with no pressure and no obligation.</p>
+            </div>
+          </li>
+        </ol>
+
+        <hr class="ty-divider">
+
+        <!-- Immediate Assistance -->
+        <p class="ty-section-label" data-animate>Need to talk sooner?</p>
+        <h2 class="ty-section-heading" data-animate>Reach Us Directly</h2>
+
+        <div class="ty-assist-card" data-animate>
+          <p>If you'd prefer to speak with someone right away, we're here. Don't hesitate to call or email us directly.</p>
+          <div class="ty-assist-links">
+            <a href="tel:4123453721">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44a2 2 0 0 1 2-2H6a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.1a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5v1.42z"/>
+              </svg>
+              412-345-3721
+            </a>
+            <a href="mailto:info@trinityhomecarellc.com">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+              info@trinityhomecarellc.com
+            </a>
+            <a href="contact.html">
+              <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 8 16 12 12 16"/>
+                <line x1="8" y1="12" x2="16" y2="12"/>
+              </svg>
+              Send another message
+            </a>
+          </div>
+        </div>
+
+        <!-- Note from Trinity -->
+        <div class="ty-note" data-animate style="--animate-delay: 0.1s">
+          <p>We understand that seeking care for yourself or a loved one is an important decision. Our goal is to make the process clear, supportive, and pressure-free from the very beginning. Thank you again for considering Trinity Home Care.</p>
+        </div>
+
+        <!-- Return CTA -->
+        <div class="ty-cta" data-animate style="--animate-delay: 0.15s">
+          <a href="index.html" class="btn btn-primary">← Return to Homepage</a>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================================================================
+       FOOTER
+       ================================================================ -->
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-top">
+
+        <div class="footer-brand">
+          <a href="index.html" class="nav-logo" aria-label="Trinity Home Care">
+            <img src="assets/logo/logo-light2.png" alt="Trinity Home Care" class="logo-img" loading="lazy">
+          </a>
+          <p class="footer-tagline">
+            Compassionate, personalized in-home care for Pittsburgh-area families.
+          </p>
+        </div>
+
+        <!-- Services -->
+        <div>
+          <h4 class="footer-col-title">Services</h4>
+          <ul class="footer-links" role="list">
+            <li><span class="footer-link" style="font-size:0.6875rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--color-teal);padding-bottom:2px;display:block;">Core Services</span></li>
+            <li><a href="services/personal-care.html"           class="footer-link">Personal Care</a></li>
+            <li><a href="services/companion-care.html"          class="footer-link">Companion Care</a></li>
+            <li><a href="services/medication-reminders.html"    class="footer-link">Medication Reminders</a></li>
+            <li><a href="services/meal-preparation.html"        class="footer-link">Meal Preparation</a></li>
+            <li><a href="services/light-housekeeping.html"      class="footer-link">Light Housekeeping</a></li>
+            <li><a href="services/mobility-safety-support.html" class="footer-link">Mobility &amp; Safety</a></li>
+            <li><span class="footer-link" style="font-size:0.6875rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--color-gold);padding-top:6px;padding-bottom:2px;display:block;">Specialized Care</span></li>
+            <li><a href="services/dementia-alzheimers-care.html" class="footer-link">Dementia &amp; Alzheimer's</a></li>
+            <li><a href="services/respite-care.html"             class="footer-link">Respite Care</a></li>
+            <li><a href="services/post-hospital-recovery.html"   class="footer-link">Post-Hospital Recovery</a></li>
+            <li><a href="services/veteran-care.html"             class="footer-link">Veteran Care</a></li>
+          </ul>
+        </div>
+
+        <!-- Company -->
+        <div>
+          <h4 class="footer-col-title">Company</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="about.html"                class="footer-link">About Us</a></li>
+            <li><a href="about.html#our-story"      class="footer-link">Our Story</a></li>
+            <li><a href="about.html#our-caregivers" class="footer-link">Our Caregivers</a></li>
+            <li><a href="index.html#testimonials"   class="footer-link">Family Stories</a></li>
+            <li><a href="index.html#contact"        class="footer-link">Join Our Team</a></li>
+          </ul>
+        </div>
+
+        <!-- Contact -->
+        <div>
+          <h4 class="footer-col-title">Contact</h4>
+          <ul class="footer-links" role="list">
+            <li><a href="tel:4123453721"                     class="footer-link">412-345-3721</a></li>
+            <li><a href="mailto:info@trinityhomecarellc.com" class="footer-link">info@trinityhomecarellc.com</a></li>
+            <li><span class="footer-link footer-location">Pittsburgh, Pennsylvania</span></li>
+            <li><a href="contact.html" class="footer-link">Free Assessment &rarr;</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <p class="footer-copyright">
+          &copy; 2026 Trinity Home Care. All rights reserved.
+        </p>
+        <nav class="footer-legal" aria-label="Legal">
+          <a href="privacy.html">Privacy Policy</a>
+          <a href="terms.html">Terms of Service</a>
+          <a href="policy.html">Policies &amp; Procedures</a>
+          <a href="accessibility.html">Accessibility</a>
+        </nav>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- Mobile sticky CTA bar -->
+  <div class="mobile-cta-bar" role="complementary" aria-label="Quick contact">
+    <a href="tel:4123453721" class="btn btn-hero-secondary"
+       aria-label="Call Trinity Home Care at 412-345-3721">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"
+           style="width:17px;height:17px;flex-shrink:0;">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44a2 2 0 0 1 2-2H6a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.1a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.5v1.42z"/>
+      </svg>
+      Call Now
+    </a>
+    <a href="contact.html" class="btn btn-hero-primary">Schedule Consultation</a>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
