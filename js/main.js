@@ -200,64 +200,62 @@
   /* -----------------------------------------------------------------
      Desktop nav dropdown — hover intent (150ms) + keyboard + outside click
      ----------------------------------------------------------------- */
-  (function () {
-    var dropdowns = document.querySelectorAll('.nav-has-dropdown');
-    dropdowns.forEach(function (el) {
-      var timer;
-      var trigger = el.querySelector('.nav-dropdown-trigger');
-      if (!trigger) return;
+  const dropdowns = document.querySelectorAll('.nav-has-dropdown');
+  dropdowns.forEach((el) => {
+    let timer;
+    const trigger = el.querySelector('.nav-dropdown-trigger');
+    if (!trigger) return;
 
-      el.addEventListener('mouseenter', function () {
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-          trigger.setAttribute('aria-expanded', 'true');
-          el.classList.add('is-open');
-        }, 150);
-      });
-
-      el.addEventListener('mouseleave', function () {
-        clearTimeout(timer);
-        timer = setTimeout(function () {
-          trigger.setAttribute('aria-expanded', 'false');
-          el.classList.remove('is-open');
-        }, 150);
-      });
-
-      trigger.addEventListener('keydown', function (e) {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          var isOpen = el.classList.contains('is-open');
-          trigger.setAttribute('aria-expanded', String(!isOpen));
-          el.classList.toggle('is-open', !isOpen);
-        }
-        if (e.key === 'Escape') {
-          trigger.setAttribute('aria-expanded', 'false');
-          el.classList.remove('is-open');
-          trigger.focus();
-        }
-      });
+    el.addEventListener('mouseenter', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        trigger.setAttribute('aria-expanded', 'true');
+        el.classList.add('is-open');
+      }, 150);
     });
 
-    document.addEventListener('click', function (e) {
-      dropdowns.forEach(function (el) {
-        if (!el.contains(e.target)) {
-          var trigger = el.querySelector('.nav-dropdown-trigger');
-          if (trigger) trigger.setAttribute('aria-expanded', 'false');
-          el.classList.remove('is-open');
-        }
-      });
+    el.addEventListener('mouseleave', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        trigger.setAttribute('aria-expanded', 'false');
+        el.classList.remove('is-open');
+      }, 150);
     });
-  }());
+
+    trigger.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        const isOpen = el.classList.contains('is-open');
+        trigger.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+        el.classList.toggle('is-open', !isOpen);
+      }
+      if (e.key === 'Escape') {
+        trigger.setAttribute('aria-expanded', 'false');
+        el.classList.remove('is-open');
+        trigger.focus();
+      }
+    });
+  });
+
+  document.addEventListener('click', (e) => {
+    dropdowns.forEach((el) => {
+      if (!el.contains(e.target)) {
+        const trigger = el.querySelector('.nav-dropdown-trigger');
+        if (trigger) trigger.setAttribute('aria-expanded', 'false');
+        el.classList.remove('is-open');
+      }
+    });
+  });
 
   /* -----------------------------------------------------------------
      Mobile nav sub-dropdown accordion
      ----------------------------------------------------------------- */
-  document.querySelectorAll('.mobile-nav-trigger').forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      var isOpen = btn.getAttribute('aria-expanded') === 'true';
-      btn.setAttribute('aria-expanded', String(!isOpen));
-      var list = btn.nextElementSibling;
-      if (list) list.hidden = isOpen;
+  document.querySelectorAll('.mobile-nav-trigger').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const isOpen = btn.getAttribute('aria-expanded') === 'true';
+      btn.setAttribute('aria-expanded', isOpen ? 'false' : 'true');
+      const list = btn.nextElementSibling;
+      if (list) list.hidden = !isOpen; // hide the list when it was open, show it when it was closed
     });
   });
 
