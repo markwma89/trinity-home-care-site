@@ -73,7 +73,29 @@
 
         <!-- Desktop navigation -->
         <ul class="nav-links" role="list">
-          <li><a href="services.html"      class="nav-link">Services</a></li>
+          <li class="nav-item nav-has-dropdown">
+            <a href="services.html" class="nav-link nav-dropdown-trigger"
+               aria-haspopup="true" aria-expanded="false">
+              Services <span class="nav-chevron" aria-hidden="true">›</span>
+            </a>
+            <ul class="nav-dropdown" role="menu" aria-label="Services menu">
+              <li role="presentation">
+                <a href="services.html" class="nav-dropdown-all" role="menuitem">All Services →</a>
+              </li>
+              <li role="presentation" class="nav-dropdown-group-label nav-dropdown-group-label--teal" aria-hidden="true">Core Services</li>
+              <li role="presentation"><a href="services/personal-care.html" role="menuitem">Personal Care</a></li>
+              <li role="presentation"><a href="services/companion-care.html" role="menuitem">Companion Care</a></li>
+              <li role="presentation"><a href="services/medication-reminders.html" role="menuitem">Medication Reminders</a></li>
+              <li role="presentation"><a href="services/meal-preparation.html" role="menuitem">Meal Preparation</a></li>
+              <li role="presentation"><a href="services/light-housekeeping.html" role="menuitem">Light Housekeeping</a></li>
+              <li role="presentation"><a href="services/mobility-safety-support.html" role="menuitem">Mobility &amp; Safety Support</a></li>
+              <li role="presentation" class="nav-dropdown-group-label nav-dropdown-group-label--gold" aria-hidden="true">Specialized Care</li>
+              <li role="presentation"><a href="services/dementia-alzheimers-care.html" role="menuitem">Dementia &amp; Alzheimer's Care</a></li>
+              <li role="presentation"><a href="services/respite-care.html" role="menuitem">Respite Care</a></li>
+              <li role="presentation"><a href="services/post-hospital-recovery.html" role="menuitem">Post-Hospital Recovery</a></li>
+              <li role="presentation"><a href="services/veteran-care.html" role="menuitem">Veteran Care</a></li>
+            </ul>
+          </li>
           <li><a href="about.html"         class="nav-link" aria-current="page">About</a></li>
           <li><a href="how-it-works.html"  class="nav-link">How It Works</a></li>
           <li><a href="index.html#testimonials" class="nav-link">Reviews</a></li>
@@ -108,7 +130,24 @@
 
     <!-- Mobile dropdown navigation -->
     <nav id="nav-mobile" class="nav-mobile" aria-label="Mobile navigation" aria-hidden="true">
-      <a href="services.html"      class="nav-mobile-link">Services</a>
+      <button class="nav-mobile-link mobile-nav-trigger" aria-expanded="false">
+        Services <span class="mobile-chevron" aria-hidden="true">›</span>
+      </button>
+      <ul class="mobile-nav-dropdown" hidden>
+        <li><a href="services.html" class="mobile-nav-dropdown-all">All Services →</a></li>
+        <li><span class="mobile-nav-group-label mobile-nav-group-label--teal">Core Services</span></li>
+        <li><a href="services/personal-care.html">Personal Care</a></li>
+        <li><a href="services/companion-care.html">Companion Care</a></li>
+        <li><a href="services/medication-reminders.html">Medication Reminders</a></li>
+        <li><a href="services/meal-preparation.html">Meal Preparation</a></li>
+        <li><a href="services/light-housekeeping.html">Light Housekeeping</a></li>
+        <li><a href="services/mobility-safety-support.html">Mobility &amp; Safety Support</a></li>
+        <li><span class="mobile-nav-group-label mobile-nav-group-label--gold">Specialized Care</span></li>
+        <li><a href="services/dementia-alzheimers-care.html">Dementia &amp; Alzheimer's Care</a></li>
+        <li><a href="services/respite-care.html">Respite Care</a></li>
+        <li><a href="services/post-hospital-recovery.html">Post-Hospital Recovery</a></li>
+        <li><a href="services/veteran-care.html">Veteran Care</a></li>
+      </ul>
       <a href="about.html"         class="nav-mobile-link" aria-current="page">About</a>
       <a href="how-it-works.html"  class="nav-mobile-link">How It Works</a>
       <a href="index.html#testimonials" class="nav-mobile-link">Reviews</a>
@@ -691,12 +730,18 @@
         <div>
           <h4 class="footer-col-title">Services</h4>
           <ul class="footer-links" role="list">
-            <li><a href="services.html#services"         class="footer-link">Personal Care</a></li>
-            <li><a href="services.html#services"         class="footer-link">Companion Care</a></li>
-            <li><a href="services.html#services"         class="footer-link">Medication Reminders</a></li>
-            <li><a href="services.html#services"         class="footer-link">Meal Preparation</a></li>
-            <li><a href="services.html#services"         class="footer-link">Light Housekeeping</a></li>
-            <li><a href="services.html#specialized-care" class="footer-link">Specialized Care</a></li>
+            <li><span class="footer-link" style="font-size:0.6875rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--color-teal);padding-bottom:2px;display:block;">Core Services</span></li>
+            <li><a href="services/personal-care.html"        class="footer-link">Personal Care</a></li>
+            <li><a href="services/companion-care.html"       class="footer-link">Companion Care</a></li>
+            <li><a href="services/medication-reminders.html" class="footer-link">Medication Reminders</a></li>
+            <li><a href="services/meal-preparation.html"     class="footer-link">Meal Preparation</a></li>
+            <li><a href="services/light-housekeeping.html"   class="footer-link">Light Housekeeping</a></li>
+            <li><a href="services/mobility-safety-support.html" class="footer-link">Mobility &amp; Safety</a></li>
+            <li><span class="footer-link" style="font-size:0.6875rem;font-weight:700;letter-spacing:0.07em;text-transform:uppercase;color:var(--color-gold);padding-top:6px;padding-bottom:2px;display:block;">Specialized Care</span></li>
+            <li><a href="services/dementia-alzheimers-care.html" class="footer-link">Dementia &amp; Alzheimer's</a></li>
+            <li><a href="services/respite-care.html"             class="footer-link">Respite Care</a></li>
+            <li><a href="services/post-hospital-recovery.html"   class="footer-link">Post-Hospital Recovery</a></li>
+            <li><a href="services/veteran-care.html"             class="footer-link">Veteran Care</a></li>
           </ul>
         </div>
 
