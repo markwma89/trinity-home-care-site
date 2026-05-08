@@ -1,0 +1,10 @@
+/* chatbot-overrides.css
+   Adjusts chatbot launcher position so it clears Trinity's fixed mobile CTA bar.
+   The mobile CTA bar is ~68px tall (44px buttons + 12px padding top + 12px bottom).
+   Applied at max-width: 767px to match Trinity's mobile breakpoint. */
+
+@media (max-width: 767px) {
+  .fg-chat-launcher-wrap {
+    bottom: 80px;
+  }
+}
