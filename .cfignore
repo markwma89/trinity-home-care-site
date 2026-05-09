@@ -1,0 +1,6 @@
+docs/
+src/
+pw-screenshots/
+pw-chatbot-test.mjs
+.claude/
+node_modules/
