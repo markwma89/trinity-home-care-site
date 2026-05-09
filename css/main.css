@@ -1995,8 +1995,12 @@ em { font-style: italic; }
 .footer-legal a:hover { color: rgba(255,255,255,0.6); }
 .footer-credit {
   width: 100%;
-  text-align: center;
-  margin-top: 0.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 .footer-credit a {
   display: inline-flex;
