@@ -319,4 +319,143 @@
     });
   });
 
+  /* -----------------------------------------------------------------
+     Email Capture Modal
+     Center overlay triggered at 40% scroll depth. After dismiss or
+     successful submit, suppressed for 30 days via localStorage key
+     "ec_dismissed". Not shown on contact, thank-you, careers, or
+     legal/utility pages.
+     ----------------------------------------------------------------- */
+  (function initEmailCapture() {
+    const EXCLUDED_PATHS = [
+      '/contact', '/contact.html',
+      '/thank-you', '/thank-you.html',
+      '/careers', '/careers.html',
+      '/careers-thank-you', '/careers-thank-you.html',
+      '/terms', '/terms.html',
+      '/privacy', '/privacy.html',
+      '/policy', '/policy.html',
+      '/accessibility', '/accessibility.html',
+    ];
+
+    const currentPath = window.location.pathname.replace(/\/$/, '') || '/';
+    if (EXCLUDED_PATHS.some(p => currentPath === p || currentPath.endsWith(p))) return;
+
+    const STORAGE_KEY = 'ec_dismissed';
+    const SUPPRESS_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (stored && Date.now() - parseInt(stored, 10) < SUPPRESS_MS) return;
+
+    let hasOpened = false;
+
+    // Inject modal HTML
+    const overlay = document.createElement('div');
+    overlay.className = 'ec-overlay';
+    overlay.setAttribute('role', 'dialog');
+    overlay.setAttribute('aria-modal', 'true');
+    overlay.setAttribute('aria-labelledby', 'ec-heading');
+    overlay.setAttribute('aria-hidden', 'true');
+    overlay.innerHTML = `
+      <div class="ec-modal">
+        <button class="ec-modal__close" aria-label="Close">&times;</button>
+        <p class="ec-modal__eyebrow">Trinity Home Care</p>
+        <h2 class="ec-modal__heading" id="ec-heading">Stay Connected with Local Care Updates</h2>
+        <p class="ec-modal__subtext">Be the first to know about care openings, resources, and tips for Pittsburgh families.</p>
+        <div class="ec-modal__form-wrap">
+          <form class="ec-modal__form" novalidate>
+            <input class="ec-modal__input" type="email" name="email"
+                   placeholder="your@email.com" autocomplete="email" required>
+            <p class="ec-modal__error" role="alert"></p>
+            <button type="submit" class="btn btn-primary" style="width:100%">Stay Informed</button>
+            <button type="button" class="ec-modal__dismiss">No thanks</button>
+          </form>
+          <div class="ec-modal__success" hidden>
+            <p class="ec-modal__success-heading">You&#x2019;re on the list.</p>
+            <p class="ec-modal__success-text">Thank you for staying connected with Trinity Home Care.</p>
+          </div>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(overlay);
+
+    const emailInput = overlay.querySelector('.ec-modal__input');
+    const errorEl    = overlay.querySelector('.ec-modal__error');
+    const successEl  = overlay.querySelector('.ec-modal__success');
+    const form       = overlay.querySelector('.ec-modal__form');
+    const submitBtn  = form.querySelector('[type="submit"]');
+
+    function suppress() {
+      localStorage.setItem(STORAGE_KEY, String(Date.now()));
+    }
+
+    function openModal() {
+      if (hasOpened) return;
+      hasOpened = true;
+      overlay.removeAttribute('aria-hidden');
+      overlay.classList.add('is-visible');
+      requestAnimationFrame(() => emailInput.focus());
+    }
+
+    function closeModal() {
+      suppress();
+      overlay.classList.remove('is-visible');
+      overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    // Scroll trigger — fires once at 40% scroll depth
+    function onScroll() {
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      if (scrollable > 0 && window.scrollY / scrollable >= 0.40) {
+        window.removeEventListener('scroll', onScroll);
+        openModal();
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Dismiss: backdrop click, close button, "No thanks"
+    overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+    overlay.querySelector('.ec-modal__close').addEventListener('click', closeModal);
+    overlay.querySelector('.ec-modal__dismiss').addEventListener('click', closeModal);
+    document.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closeModal();
+    });
+
+    // Form submit
+    form.addEventListener('submit', async function (e) {
+      e.preventDefault();
+
+      const email = emailInput.value.trim();
+      errorEl.textContent = '';
+
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        errorEl.textContent = 'Please enter a valid email address.';
+        emailInput.focus();
+        return;
+      }
+
+      submitBtn.textContent = 'Sending…';
+      submitBtn.disabled = true;
+
+      try {
+        const res = await fetch('/api/email-capture', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email }),
+        });
+
+        if (!res.ok) throw new Error('server');
+
+        form.hidden = true;
+        successEl.hidden = false;
+        suppress();
+        setTimeout(() => overlay.classList.remove('is-visible'), 3000);
+      } catch {
+        submitBtn.textContent = 'Stay Informed';
+        submitBtn.disabled = false;
+        errorEl.textContent = 'Something went wrong. Please try again.';
+      }
+    });
+  })();
+
 })();
