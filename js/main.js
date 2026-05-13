@@ -453,6 +453,7 @@
         successEl.hidden = false;
         suppress();
         setTimeout(() => {
+          document.removeEventListener('keydown', onKeydown);
           overlay.classList.remove('is-visible');
           overlay.setAttribute('aria-hidden', 'true');
         }, 3000);
