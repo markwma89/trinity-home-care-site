@@ -2369,6 +2369,12 @@ em { font-style: italic; }
 
 .ec-modal__dismiss:hover { color: var(--color-text-sub); }
 
+.ec-modal__dismiss:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
 @media (max-width: 480px) {
   .ec-modal {
     padding: 2rem 1.25rem 1.5rem;
