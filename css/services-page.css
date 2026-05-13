@@ -350,7 +350,7 @@
 .service-cta-disclaimer {
   font-size: 0.8125rem;
   color: rgba(255,255,255,0.5);
-  margin-top: 0.75rem;
+  margin: 0.75rem auto 0;
   text-align: center;
 }
 

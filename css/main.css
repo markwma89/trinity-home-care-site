@@ -501,9 +501,9 @@ em { font-style: italic; }
 
 .nav-link {
   position: relative;
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
-  padding: 0.5rem 0.875rem;
+  padding: 0.5rem 0.6rem;
   border-radius: var(--radius-sm);
   color: rgba(255, 255, 255, 0.85);
   transition: color var(--t-fast), background var(--t-fast);
@@ -624,7 +624,8 @@ em { font-style: italic; }
   box-shadow:
     0 8px 24px rgba(33, 58, 90, 0.12),
     0 24px 64px rgba(33, 58, 90, 0.10);
-  overflow: hidden;
+  max-height: calc(100vh - 72px);
+  overflow-y: auto;
 
   /* Hidden state — animate with opacity + transform, not display */
   opacity: 0;
@@ -1994,10 +1995,9 @@ em { font-style: italic; }
 }
 .footer-legal a:hover { color: rgba(255,255,255,0.6); }
 .footer-credit {
-  flex: 0 0 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  display: block;
+  text-align: center;
+  max-width: none;
   margin-top: 0.75rem;
   padding-top: 0.75rem;
   border-top: 1px solid rgba(255,255,255,0.08);
@@ -2104,6 +2104,8 @@ em { font-style: italic; }
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-card);
   min-width: 240px;
+  max-height: calc(100vh - 100px);
+  overflow-y: auto;
   padding: 6px 0;
   list-style: none;
   margin: 0;
