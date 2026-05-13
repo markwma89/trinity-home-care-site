@@ -2209,3 +2209,169 @@ em { font-style: italic; }
 }
 .mobile-nav-group-label--teal { color: var(--color-teal); }
 .mobile-nav-group-label--gold { color: var(--color-gold); }
+
+/* -------------------------------------------------------------------
+   Email Capture Modal
+   Center overlay triggered at 40% scroll depth.
+   Uses existing brand tokens — no new custom properties needed.
+   ------------------------------------------------------------------- */
+
+.ec-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(33, 58, 90, 0.55);
+  z-index: var(--z-modal);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  opacity: 0;
+  transition: opacity var(--t-base);
+  pointer-events: none;
+}
+
+.ec-overlay.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.ec-modal {
+  background: var(--color-white);
+  border-radius: var(--radius-md);
+  border-top: 3px solid var(--color-gold);
+  max-width: 480px;
+  width: 100%;
+  padding: 2.5rem 2rem 2rem;
+  position: relative;
+  box-shadow: 0 24px 64px rgba(33, 58, 90, 0.28);
+  transform: translateY(16px);
+  transition: transform var(--t-base);
+}
+
+.ec-overlay.is-visible .ec-modal {
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ec-overlay,
+  .ec-modal {
+    transition: none;
+  }
+}
+
+.ec-modal__close {
+  position: absolute;
+  top: 0.875rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: var(--color-stone);
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.25rem;
+  transition: color var(--t-fast);
+}
+
+.ec-modal__close:hover { color: var(--color-text); }
+
+.ec-modal__close:focus-visible {
+  outline: 3px solid var(--color-teal);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.ec-modal__eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-teal);
+  margin-bottom: 0.75rem;
+}
+
+.ec-modal__heading {
+  font-family: var(--font-heading);
+  font-size: 1.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--color-navy);
+  margin-bottom: 0.75rem;
+}
+
+.ec-modal__subtext {
+  font-size: 0.9375rem;
+  color: var(--color-text-sub);
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+
+.ec-modal__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.ec-modal__input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--color-text);
+  background: var(--color-ivory);
+  border: 1.5px solid var(--color-stone);
+  border-radius: var(--radius-sm);
+  transition: border-color var(--t-fast), box-shadow var(--t-fast);
+  min-height: 48px;
+}
+
+.ec-modal__input:focus {
+  outline: none;
+  border-color: var(--color-teal);
+  box-shadow: 0 0 0 3px rgba(95, 143, 149, 0.18);
+}
+
+.ec-modal__input::placeholder { color: var(--color-text-muted); }
+
+.ec-modal__error {
+  font-size: 0.875rem;
+  color: #c0392b;
+  min-height: 1.25rem;
+}
+
+.ec-modal__success { text-align: center; padding: 1rem 0; }
+
+.ec-modal__success-heading {
+  font-family: var(--font-heading);
+  font-size: 1.5rem;
+  color: var(--color-navy);
+  margin-bottom: 0.5rem;
+}
+
+.ec-modal__success-text {
+  font-size: 0.9375rem;
+  color: var(--color-text-sub);
+}
+
+.ec-modal__dismiss {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 0.8125rem;
+  color: var(--color-text-muted);
+  text-align: center;
+  padding: 0.25rem;
+  transition: color var(--t-fast);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.ec-modal__dismiss:hover { color: var(--color-text-sub); }
+
+@media (max-width: 480px) {
+  .ec-modal {
+    padding: 2rem 1.25rem 1.5rem;
+  }
+  .ec-modal__heading { font-size: 1.5rem; }
+}
