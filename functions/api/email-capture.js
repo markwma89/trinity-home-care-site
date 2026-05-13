@@ -29,8 +29,9 @@ export async function onRequestPost(context) {
 
   // Check env vars
   const { BREVO_API_KEY, BREVO_LIST_ID } = env;
-  if (!BREVO_API_KEY || !BREVO_LIST_ID) {
-    console.error('[email-capture] Missing BREVO_API_KEY or BREVO_LIST_ID');
+  const listId = parseInt(BREVO_LIST_ID, 10);
+  if (!BREVO_API_KEY || !Number.isInteger(listId)) {
+    console.error('[email-capture] Missing or invalid BREVO_API_KEY or BREVO_LIST_ID');
     return new Response(JSON.stringify({ error: 'Server misconfigured' }), {
       status: 500,
       headers: JSON_HEADERS,
@@ -49,7 +50,7 @@ export async function onRequestPost(context) {
       },
       body: JSON.stringify({
         email,
-        listIds: [parseInt(BREVO_LIST_ID, 10)],
+        listIds: [listId],
         updateEnabled: true,
         attributes: { SOURCE: 'website' },
       }),
@@ -62,7 +63,7 @@ export async function onRequestPost(context) {
     });
   }
 
-  // Brevo returns 201 (created) or 204 (contact already exists, updated)
+  // Brevo returns 201 (new contact created) or 204 (existing contact updated via updateEnabled:true)
   if (brevoRes.status === 201 || brevoRes.status === 204) {
     return new Response(JSON.stringify({ success: true }), {
       status: 200,
@@ -80,7 +81,7 @@ export async function onRequestPost(context) {
 
 // Reject non-POST methods with 405
 export async function onRequest() {
-  return new Response(null, { status: 405 });
+  return new Response(null, { status: 405, headers: { Allow: 'POST, OPTIONS' } });
 }
 
 // Handle preflight (same-origin requests don't need this, but it's harmless)
