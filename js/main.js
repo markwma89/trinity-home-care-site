@@ -397,8 +397,13 @@
       requestAnimationFrame(() => emailInput.focus());
     }
 
+    function onKeydown(e) {
+      if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closeModal();
+    }
+
     function closeModal() {
       suppress();
+      document.removeEventListener('keydown', onKeydown);
       overlay.classList.remove('is-visible');
       overlay.setAttribute('aria-hidden', 'true');
     }
@@ -417,9 +422,7 @@
     overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
     overlay.querySelector('.ec-modal__close').addEventListener('click', closeModal);
     overlay.querySelector('.ec-modal__dismiss').addEventListener('click', closeModal);
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && overlay.classList.contains('is-visible')) closeModal();
-    });
+    document.addEventListener('keydown', onKeydown);
 
     // Form submit
     form.addEventListener('submit', async function (e) {
@@ -449,7 +452,10 @@
         form.hidden = true;
         successEl.hidden = false;
         suppress();
-        setTimeout(() => overlay.classList.remove('is-visible'), 3000);
+        setTimeout(() => {
+          overlay.classList.remove('is-visible');
+          overlay.setAttribute('aria-hidden', 'true');
+        }, 3000);
       } catch {
         submitBtn.textContent = 'Stay Informed';
         submitBtn.disabled = false;
