@@ -1,0 +1,111 @@
+<h2>Which email capture banner style fits best?</h2>
+<p class="subtitle">All three use Trinity Home Care's brand colors. Which feels right for a home care audience — families researching care for a loved one?</p>
+
+<div class="cards">
+
+  <!-- Option A: Bottom sticky bar -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding: 0; overflow: hidden; background: #f0ede6; min-height: 180px; position: relative; border-radius: 8px 8px 0 0;">
+      <!-- Page content preview -->
+      <div style="padding: 16px 20px 60px; font-family: sans-serif;">
+        <div style="height: 10px; background: #c8c3ba; border-radius: 4px; margin-bottom: 8px; width: 60%;"></div>
+        <div style="height: 8px; background: #ddd8d0; border-radius: 4px; margin-bottom: 6px; width: 90%;"></div>
+        <div style="height: 8px; background: #ddd8d0; border-radius: 4px; margin-bottom: 6px; width: 75%;"></div>
+        <div style="height: 8px; background: #ddd8d0; border-radius: 4px; width: 82%;"></div>
+      </div>
+      <!-- Sticky bottom bar -->
+      <div style="
+        position: absolute; bottom: 0; left: 0; right: 0;
+        background: #213A5A;
+        padding: 12px 20px;
+        display: flex; align-items: center; gap: 12px;
+        font-family: sans-serif;
+        box-shadow: 0 -4px 20px rgba(0,0,0,0.18);
+      ">
+        <div style="flex: 1; min-width: 0;">
+          <div style="color: #F6F2EB; font-size: 12px; font-weight: 600; margin-bottom: 2px;">Stay informed about home care for your family</div>
+        </div>
+        <div style="display: flex; gap: 8px; flex-shrink: 0;">
+          <div style="background: rgba(246,242,235,0.15); border: 1px solid rgba(246,242,235,0.3); border-radius: 4px; padding: 6px 10px; color: #F6F2EB; font-size: 11px;">email@example.com</div>
+          <div style="background: #5F8F95; border-radius: 4px; padding: 6px 10px; color: white; font-size: 11px; font-weight: 600; white-space: nowrap;">Subscribe →</div>
+        </div>
+        <div style="color: rgba(246,242,235,0.5); font-size: 14px; cursor: pointer; flex-shrink: 0;">✕</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>A — Bottom Sticky Bar</h3>
+      <p>Slim bar anchored to the bottom of the viewport. Slides up after ~40% scroll. Unobtrusive, always accessible, low friction. Most common pattern for service businesses.</p>
+    </div>
+  </div>
+
+  <!-- Option B: Floating bottom-right card -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding: 0; overflow: hidden; background: #f0ede6; min-height: 180px; position: relative; border-radius: 8px 8px 0 0;">
+      <!-- Page content preview -->
+      <div style="padding: 16px 20px; font-family: sans-serif;">
+        <div style="height: 10px; background: #c8c3ba; border-radius: 4px; margin-bottom: 8px; width: 60%;"></div>
+        <div style="height: 8px; background: #ddd8d0; border-radius: 4px; margin-bottom: 6px; width: 90%;"></div>
+        <div style="height: 8px; background: #ddd8d0; border-radius: 4px; margin-bottom: 6px; width: 75%;"></div>
+        <div style="height: 8px; background: #ddd8d0; border-radius: 4px; width: 82%;"></div>
+      </div>
+      <!-- Floating card bottom-right -->
+      <div style="
+        position: absolute; bottom: 14px; right: 14px;
+        background: white;
+        border-radius: 12px;
+        padding: 14px 16px;
+        width: 200px;
+        box-shadow: 0 8px 32px rgba(33,58,90,0.22);
+        font-family: sans-serif;
+        border-top: 3px solid #B89A5E;
+      ">
+        <div style="font-size: 11px; font-weight: 700; color: #213A5A; margin-bottom: 4px;">Care tips for Pittsburgh families</div>
+        <div style="font-size: 10px; color: #6B7E8F; margin-bottom: 8px;">Monthly insights on in-home care, free.</div>
+        <div style="background: #f6f2eb; border: 1px solid #c8c3ba; border-radius: 4px; padding: 5px 8px; color: #4A5E72; font-size: 10px; margin-bottom: 6px;">your@email.com</div>
+        <div style="background: #213A5A; border-radius: 4px; padding: 6px 10px; color: white; font-size: 10px; font-weight: 600; text-align: center;">Get Free Tips</div>
+        <div style="position: absolute; top: 8px; right: 10px; color: #c8c3ba; font-size: 12px; cursor: pointer;">✕</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>B — Floating Card (bottom-right)</h3>
+      <p>Compact card that slides in from the bottom-right corner. Higher-effort appearance — feels like a value offer, not a form. Can feel like it competes with the chatbot widget already on-site.</p>
+    </div>
+  </div>
+
+  <!-- Option C: Center modal -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="card-image" style="padding: 0; overflow: hidden; background: rgba(0,0,0,0.45); min-height: 180px; position: relative; border-radius: 8px 8px 0 0; display: flex; align-items: center; justify-content: center;">
+      <!-- Page content dimmed -->
+      <div style="position: absolute; inset: 0; background: #f0ede6; z-index: 0;">
+        <div style="padding: 16px 20px; font-family: sans-serif; filter: blur(1px);">
+          <div style="height: 10px; background: #c8c3ba; border-radius: 4px; margin-bottom: 8px; width: 60%;"></div>
+          <div style="height: 8px; background: #ddd8d0; border-radius: 4px; margin-bottom: 6px; width: 90%;"></div>
+          <div style="height: 8px; background: #ddd8d0; border-radius: 4px; width: 75%;"></div>
+        </div>
+      </div>
+      <div style="position: absolute; inset: 0; background: rgba(33,58,90,0.5); z-index: 1;"></div>
+      <!-- Modal -->
+      <div style="
+        position: relative; z-index: 2;
+        background: white;
+        border-radius: 12px;
+        padding: 20px 22px;
+        width: 240px;
+        font-family: sans-serif;
+        text-align: center;
+      ">
+        <div style="font-size: 13px; font-weight: 700; color: #213A5A; margin-bottom: 4px;">Care resources for your family</div>
+        <div style="font-size: 10px; color: #6B7E8F; margin-bottom: 10px;">Join families getting monthly home care tips.</div>
+        <div style="background: #f6f2eb; border: 1px solid #c8c3ba; border-radius: 4px; padding: 6px 10px; color: #4A5E72; font-size: 10px; margin-bottom: 8px;">your@email.com</div>
+        <div style="background: #5F8F95; border-radius: 4px; padding: 7px 12px; color: white; font-size: 11px; font-weight: 600;">Subscribe Free</div>
+        <div style="margin-top: 8px; font-size: 9px; color: #c8c3ba; cursor: pointer;">No thanks</div>
+        <div style="position: absolute; top: 8px; right: 10px; color: #c8c3ba; font-size: 12px; cursor: pointer;">✕</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <h3>C — Center Overlay / Modal</h3>
+      <p>Appears over a dimmed page background. High visibility, maximizes conversions — but interrupts the browsing experience. Can feel aggressive for a trust-focused health care audience.</p>
+    </div>
+  </div>
+
+</div>
