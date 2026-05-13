@@ -377,8 +377,6 @@
         </div>
       </div>
     `;
-    document.body.appendChild(overlay);
-
     const emailInput = overlay.querySelector('.ec-modal__input');
     const errorEl    = overlay.querySelector('.ec-modal__error');
     const successEl  = overlay.querySelector('.ec-modal__success');
@@ -387,14 +385,6 @@
 
     function suppress() {
       localStorage.setItem(STORAGE_KEY, String(Date.now()));
-    }
-
-    function openModal() {
-      if (hasOpened) return;
-      hasOpened = true;
-      overlay.removeAttribute('aria-hidden');
-      overlay.classList.add('is-visible');
-      requestAnimationFrame(() => emailInput.focus());
     }
 
     function onKeydown(e) {
@@ -406,6 +396,21 @@
       document.removeEventListener('keydown', onKeydown);
       overlay.classList.remove('is-visible');
       overlay.setAttribute('aria-hidden', 'true');
+    }
+
+    function openModal() {
+      if (hasOpened) return;
+      hasOpened = true;
+      document.body.appendChild(overlay);
+      document.addEventListener('keydown', onKeydown);
+      // Double rAF: first tick inserts element, second tick triggers CSS transition
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          overlay.removeAttribute('aria-hidden');
+          overlay.classList.add('is-visible');
+          emailInput.focus();
+        });
+      });
     }
 
     // Scroll trigger — fires once at 40% scroll depth
@@ -422,7 +427,6 @@
     overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
     overlay.querySelector('.ec-modal__close').addEventListener('click', closeModal);
     overlay.querySelector('.ec-modal__dismiss').addEventListener('click', closeModal);
-    document.addEventListener('keydown', onKeydown);
 
     // Form submit
     form.addEventListener('submit', async function (e) {
