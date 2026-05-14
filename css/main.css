@@ -554,6 +554,9 @@ em { font-style: italic; }
 @media (min-width: 768px) {
   .nav-phone { display: block; }
 }
+@media (min-width: 1200px) {
+  .nav-phone { display: none; }
+}
 .site-header.is-scrolled .nav-phone {
   opacity: 1;
   pointer-events: auto;
