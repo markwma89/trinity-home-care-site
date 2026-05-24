@@ -1998,6 +1998,74 @@ em { font-style: italic; }
   transition: color var(--t-fast);
 }
 .footer-legal a:hover { color: rgba(255,255,255,0.6); }
+.privacy-preferences-link {
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.28);
+  transition: color var(--t-fast);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+}
+.privacy-preferences-link:hover { color: rgba(255,255,255,0.6); }
+
+/* Footer Google Review CTA */
+.footer-review {
+  padding-block: 1.75rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 2rem;
+}
+.footer-review-inner {
+  display: flex;
+  align-items: center;
+  gap: 1rem 1.75rem;
+  flex-wrap: wrap;
+}
+.footer-review-google {
+  flex-shrink: 0;
+  width: 34px;
+  height: 34px;
+}
+.footer-review-google svg { width: 34px; height: 34px; }
+.footer-review-text { flex: 1; min-width: 180px; }
+.footer-review-heading {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  line-height: 1.35;
+}
+.footer-review-sub {
+  font-size: 0.8125rem;
+  color: rgba(255,255,255,0.45);
+  margin-top: 0.2rem;
+  line-height: 1.55;
+}
+.btn-footer-review {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1.25rem;
+  background: var(--color-teal);
+  color: var(--color-white);
+  font-size: 0.875rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  border-radius: var(--radius-sm);
+  white-space: nowrap;
+  transition: background var(--t-base), transform var(--t-base);
+  flex-shrink: 0;
+}
+.btn-footer-review svg { width: 13px; height: 13px; flex-shrink: 0; }
+.btn-footer-review:hover {
+  background: var(--color-teal-muted);
+  transform: translateY(-1px);
+}
+@media (max-width: 639px) {
+  .btn-footer-review { width: 100%; justify-content: center; }
+}
+
 .footer-credit {
   display: block;
   text-align: center;
