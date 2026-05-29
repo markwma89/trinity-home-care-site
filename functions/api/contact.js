@@ -54,6 +54,7 @@ export async function onRequestPost(context) {
       sendEmail(RESEND_API_KEY, {
         from: FROM,
         to: NOTIFY,
+        replyTo: email.trim() || undefined,
         subject: `New Care Inquiry — ${first_name.trim()} ${last_name.trim()}`,
         html: notifyHtml,
       }),

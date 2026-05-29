@@ -1,7 +1,7 @@
 // functions/_shared/resend.js
 const RESEND_API = 'https://api.resend.com';
 
-export async function sendEmail(apiKey, { from, to, subject, html, attachments }) {
+export async function sendEmail(apiKey, { from, to, subject, html, attachments, replyTo }) {
   const res = await fetch(`${RESEND_API}/emails`, {
     method: 'POST',
     headers: {
@@ -14,6 +14,7 @@ export async function sendEmail(apiKey, { from, to, subject, html, attachments }
       subject,
       html,
       ...(attachments?.length ? { attachments } : {}),
+      ...(replyTo ? { reply_to: replyTo } : {}),
     }),
   });
   if (!res.ok) {

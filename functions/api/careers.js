@@ -40,9 +40,16 @@ export async function onRequestPost(context) {
     return json({ error: 'Missing required fields' }, 400);
   }
 
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+    return json({ error: 'Invalid email address' }, 400);
+  }
+
   // Encode resume — use a loop, not spread, to avoid stack overflow on large files
   const attachments = [];
   const resumeFile = fd.get('resume');
+  if (resumeFile && resumeFile.size > 5 * 1024 * 1024) {
+    return json({ error: 'Resume must be under 5 MB' }, 400);
+  }
   if (resumeFile && resumeFile.size > 0) {
     const buffer = await resumeFile.arrayBuffer();
     const bytes = new Uint8Array(buffer);
@@ -87,6 +94,7 @@ export async function onRequestPost(context) {
       sendEmail(RESEND_API_KEY, {
         from: FROM,
         to: NOTIFY,
+        replyTo: email,
         subject: `New Application — ${first_name} ${last_name}${position ? ` (${position})` : ''}`,
         html: notifyHtml,
         attachments,
