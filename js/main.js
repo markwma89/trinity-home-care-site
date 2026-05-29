@@ -275,10 +275,31 @@
     submitBtn.textContent = 'Submitting…';
     submitBtn.disabled = true;
 
-    // Replace setTimeout with real fetch/POST when wiring to a backend or form service.
-    setTimeout(() => {
-      window.location.href = 'careers-thank-you.html';
-    }, 800);
+    fetch('/api/careers', {
+      method: 'POST',
+      body: new FormData(careersForm),
+      // No Content-Type header — browser sets multipart/form-data boundary automatically
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (json) {
+        if (json.success) {
+          window.location.href = 'careers-thank-you.html';
+        } else {
+          throw new Error(json.error || 'unknown');
+        }
+      })
+      .catch(function () {
+        submitBtn.textContent = 'Submit Application';
+        submitBtn.disabled = false;
+        var errEl = careersForm.querySelector('.form-submit-error');
+        if (!errEl) {
+          errEl = document.createElement('p');
+          errEl.className = 'form-submit-error';
+          errEl.style.cssText = 'color:#c0392b;font-size:0.875rem;margin-top:0.75rem;';
+          submitBtn.parentNode.appendChild(errEl);
+        }
+        errEl.textContent = 'Something went wrong. Please try again or call 412-345-3721.';
+      });
   });
 
   /* -----------------------------------------------------------------
