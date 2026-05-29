@@ -189,10 +189,34 @@
     submitBtn.textContent = 'Sending\u2026';
     submitBtn.disabled = true;
 
-    // Replace setTimeout with real fetch/POST when wiring to a backend or form service.
-    setTimeout(() => {
-      window.location.href = 'thank-you.html';
-    }, 800);
+    const data = {};
+    new FormData(this).forEach((v, k) => { data[k] = v.toString(); });
+
+    fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    })
+      .then(function (res) { return res.json(); })
+      .then(function (json) {
+        if (json.success) {
+          window.location.href = 'thank-you.html';
+        } else {
+          throw new Error(json.error || 'unknown');
+        }
+      })
+      .catch(function () {
+        submitBtn.textContent = originalText;
+        submitBtn.disabled = false;
+        var errEl = contactForm.querySelector('.form-submit-error');
+        if (!errEl) {
+          errEl = document.createElement('p');
+          errEl.className = 'form-submit-error';
+          errEl.style.cssText = 'color:#c0392b;font-size:0.875rem;margin-top:0.75rem;';
+          submitBtn.parentNode.appendChild(errEl);
+        }
+        errEl.textContent = 'Something went wrong. Please try again or call 412-345-3721.';
+      });
   });
 
   /* -----------------------------------------------------------------
