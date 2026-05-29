@@ -1,90 +1,61 @@
 // functions/api/email-capture.js
-// Cloudflare Pages Function — POST /api/email-capture
-// Adds submitted email to a Brevo contact list.
-// Requires env vars: BREVO_API_KEY, BREVO_LIST_ID
+import { sendEmail, addAudienceContact } from '../_shared/resend.js';
+
+const FROM    = 'forms@forms.trinityhomecarellc.com';
+const HEADERS = { 'Content-Type': 'application/json' };
 
 export async function onRequestPost(context) {
   const { request, env } = context;
-  const JSON_HEADERS = { 'Content-Type': 'application/json' };
+  const { RESEND_API_KEY, RESEND_AUDIENCE_ID } = env;
 
-  // Parse request body
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return new Response(JSON.stringify({ error: 'Invalid request' }), {
-      status: 400,
-      headers: JSON_HEADERS,
-    });
+  if (!RESEND_API_KEY || !RESEND_AUDIENCE_ID) {
+    console.error('[email-capture] Missing RESEND_API_KEY or RESEND_AUDIENCE_ID');
+    return json({ error: 'Server misconfigured' }, 500);
   }
 
-  // Validate email
+  let body;
+  try { body = await request.json(); } catch {
+    return json({ error: 'Invalid request' }, 400);
+  }
+
   const email = (body?.email ?? '').trim();
   if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-    return new Response(JSON.stringify({ error: 'Invalid email' }), {
-      status: 400,
-      headers: JSON_HEADERS,
-    });
+    return json({ error: 'Invalid email' }, 400);
   }
 
-  // Check env vars
-  const { BREVO_API_KEY, BREVO_LIST_ID } = env;
-  const listId = parseInt(BREVO_LIST_ID, 10);
-  if (!BREVO_API_KEY || !Number.isInteger(listId)) {
-    console.error('[email-capture] Missing or invalid BREVO_API_KEY or BREVO_LIST_ID');
-    return new Response(JSON.stringify({ error: 'Server misconfigured' }), {
-      status: 500,
-      headers: JSON_HEADERS,
-    });
-  }
+  const welcomeHtml = `
+<div style="font-family:sans-serif;max-width:600px;margin:0 auto;">
+  <h2 style="color:#213A5A;">You're connected with Trinity Home Care</h2>
+  <p style="font-size:16px;line-height:1.6;color:#333;">Thank you for staying connected. We'll keep you informed about care resources, openings, and tips for Pittsburgh families.</p>
+  <p style="font-size:16px;line-height:1.6;color:#333;">Need to talk? Call us at <a href="tel:4123453721" style="color:#213A5A;">412-345-3721</a>.</p>
+  <p style="font-size:15px;color:#777;margin-top:32px;">— The Trinity Home Care Team</p>
+</div>`;
 
-  // Call Brevo Contacts API
-  let brevoRes;
   try {
-    brevoRes = await fetch('https://api.brevo.com/v3/contacts', {
-      method: 'POST',
-      headers: {
-        'api-key': BREVO_API_KEY,
-        'Content-Type': 'application/json',
-        Accept: 'application/json',
-      },
-      body: JSON.stringify({
-        email,
-        listIds: [listId],
-        updateEnabled: true,
-        attributes: { SOURCE: 'website' },
+    await Promise.all([
+      addAudienceContact(RESEND_API_KEY, RESEND_AUDIENCE_ID, email),
+      sendEmail(RESEND_API_KEY, {
+        from: FROM,
+        to: email,
+        subject: "You're connected with Trinity Home Care",
+        html: welcomeHtml,
       }),
-    });
+    ]);
+    return json({ success: true }, 200);
   } catch (err) {
-    console.error('[email-capture] Brevo fetch error:', err);
-    return new Response(JSON.stringify({ error: 'Subscription failed' }), {
-      status: 500,
-      headers: JSON_HEADERS,
-    });
+    console.error('[email-capture] error:', err.message);
+    return json({ error: 'Subscription failed' }, 500);
   }
-
-  // Brevo returns 201 (new contact created) or 204 (existing contact updated via updateEnabled:true)
-  if (brevoRes.status === 201 || brevoRes.status === 204) {
-    return new Response(JSON.stringify({ success: true }), {
-      status: 200,
-      headers: JSON_HEADERS,
-    });
-  }
-
-  const brevoBody = await brevoRes.text();
-  console.error('[email-capture] Brevo error:', brevoRes.status, brevoBody);
-  return new Response(JSON.stringify({ error: 'Subscription failed' }), {
-    status: 500,
-    headers: JSON_HEADERS,
-  });
 }
 
-// Reject non-POST methods with 405
 export async function onRequest() {
   return new Response(null, { status: 405, headers: { Allow: 'POST, OPTIONS' } });
 }
 
-// Handle preflight (same-origin requests don't need this, but it's harmless)
 export async function onRequestOptions() {
   return new Response(null, { status: 204 });
+}
+
+function json(data, status) {
+  return new Response(JSON.stringify(data), { status, headers: HEADERS });
 }
