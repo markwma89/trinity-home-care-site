@@ -2,6 +2,7 @@
 import { sendEmail, addAudienceContact } from '../_shared/resend.js';
 
 const FROM    = 'forms@forms.trinityhomecarellc.com';
+const NOTIFY  = 'mail@trinityhomecarellc.com';
 const HEADERS = { 'Content-Type': 'application/json' };
 
 export async function onRequestPost(context) {
@@ -39,6 +40,12 @@ export async function onRequestPost(context) {
         to: email,
         subject: "You're connected with Trinity Home Care",
         html: welcomeHtml,
+      }),
+      sendEmail(RESEND_API_KEY, {
+        from: FROM,
+        to: NOTIFY,
+        subject: `New Lead — ${email}`,
+        html: `<p style="font-family:sans-serif;font-size:15px;color:#333;">A new visitor subscribed via the website banner:</p><p style="font-family:sans-serif;font-size:15px;color:#213A5A;font-weight:bold;">${email}</p>`,
       }),
     ]);
     return json({ success: true }, 200);
