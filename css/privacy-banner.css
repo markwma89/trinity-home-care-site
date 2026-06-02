@@ -1,0 +1,384 @@
+/* Trinity Home Care — Custom Privacy Consent Banner
+   Pattern: compact bottom banner + manage modal (same architecture as FluxGrid Studio)
+   Do NOT use Cloudflare Zaraz's visible modal — this replaces it entirely.
+   Brand: Navy #213A5A · Teal #5F8F95 · Ivory #F6F2EB
+*/
+
+.tc-privacy-banner,
+.tc-privacy-modal,
+.tc-privacy-preferences-fixed {
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+/* ── Bottom banner wrapper ── */
+.tc-privacy-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%);
+  width: min(90vw, 1100px);
+  z-index: 2147483647;
+  display: none;
+  color: #F6F2EB;
+}
+
+.tc-privacy-banner.is-visible {
+  display: block;
+}
+
+/* ── Panel: navy gradient, two-column grid ── */
+.tc-privacy-panel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  gap: 24px;
+  align-items: center;
+  padding: 18px 24px;
+  background:
+    radial-gradient(circle at 10% 0%, rgba(95, 143, 149, 0.12), transparent 30%),
+    linear-gradient(135deg, #172B44 0%, #213A5A 100%);
+  border: 1px solid rgba(95, 143, 149, 0.35);
+  border-radius: 18px;
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.36),
+    0 0 32px rgba(95, 143, 149, 0.10);
+  backdrop-filter: blur(18px) saturate(140%);
+}
+
+/* ── Copy block (left column) ── */
+.tc-privacy-copy {
+  min-width: 0;
+}
+
+.tc-privacy-eyebrow {
+  margin: 0 0 4px;
+  color: #85B4BA;
+  font-size: 0.68rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.tc-privacy-title {
+  margin: 0 0 5px;
+  color: #F6F2EB;
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
+}
+
+.tc-privacy-text {
+  margin: 0;
+  max-width: 680px;
+  color: rgba(246, 242, 235, 0.72);
+  font-size: 0.8rem;
+  line-height: 1.5;
+}
+
+.tc-privacy-text a {
+  color: #85B4BA;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.tc-privacy-text a:hover {
+  color: #5F8F95;
+}
+
+/* ── Actions block (right column) ── */
+.tc-privacy-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 8px;
+  flex-wrap: nowrap;
+}
+
+/* ── Shared button base ── */
+.tc-privacy-btn {
+  border: 1px solid rgba(246, 242, 235, 0.18);
+  background: rgba(246, 242, 235, 0.07);
+  color: #F6F2EB;
+  border-radius: 999px;
+  min-height: 36px;
+  padding: 0.58rem 1rem;
+  font: inherit;
+  font-size: 0.78rem;
+  font-weight: 700;
+  line-height: 1;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    transform 160ms ease,
+    border-color 160ms ease,
+    background 160ms ease;
+}
+
+.tc-privacy-btn:hover {
+  transform: translateY(-1px);
+  border-color: rgba(95, 143, 149, 0.75);
+}
+
+.tc-privacy-btn:focus-visible {
+  outline: 3px solid rgba(95, 143, 149, 0.4);
+  outline-offset: 3px;
+}
+
+/* ── Accept All — Trinity Teal (primary CTA) ── */
+.tc-privacy-btn--primary {
+  background: #5F8F95;
+  color: #ffffff;
+  border-color: transparent;
+  box-shadow: 0 2px 10px rgba(95, 143, 149, 0.35);
+}
+
+.tc-privacy-btn--primary:hover {
+  background: #4D7F85;
+  border-color: transparent;
+  box-shadow: 0 4px 16px rgba(95, 143, 149, 0.45);
+}
+
+/* ── Manage — ghost link style ── */
+.tc-privacy-btn--link {
+  background: transparent;
+  color: rgba(246, 242, 235, 0.72);
+  border-color: transparent;
+}
+
+.tc-privacy-btn--link:hover {
+  color: #F6F2EB;
+  border-color: transparent;
+  background: transparent;
+}
+
+/* ═══════════════════════════════════════════
+   Manage Preferences Modal
+   ═══════════════════════════════════════════ */
+
+.tc-privacy-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483646;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(10, 20, 35, 0.60);
+  backdrop-filter: blur(8px);
+}
+
+.tc-privacy-modal.is-visible {
+  display: flex;
+}
+
+.tc-privacy-modal-panel {
+  width: min(600px, 100%);
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+  background: #F6F2EB;
+  color: #213A5A;
+  border-radius: 20px;
+  padding: 1.5rem;
+  box-shadow: 0 28px 80px rgba(0, 0, 0, 0.32);
+}
+
+.tc-privacy-modal-header {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(33, 58, 90, 0.12);
+}
+
+.tc-privacy-modal-header h2 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: #213A5A;
+  letter-spacing: -0.02em;
+}
+
+.tc-privacy-modal-header p {
+  margin: 0.4rem 0 0;
+  color: #4A5E72;
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.tc-privacy-close {
+  flex-shrink: 0;
+  border: 0;
+  width: 36px;
+  height: 36px;
+  border-radius: 999px;
+  background: rgba(33, 58, 90, 0.08);
+  color: #213A5A;
+  cursor: pointer;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease;
+}
+
+.tc-privacy-close:hover {
+  background: rgba(33, 58, 90, 0.14);
+}
+
+/* ── Purpose category card ── */
+.tc-privacy-category {
+  border: 1px solid rgba(33, 58, 90, 0.12);
+  border-radius: 14px;
+  padding: 1rem;
+  margin: 0.625rem 0;
+  background: rgba(255, 255, 255, 0.6);
+}
+
+.tc-privacy-category-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+
+.tc-privacy-category h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  color: #213A5A;
+}
+
+.tc-privacy-category p {
+  margin: 0.3rem 0 0;
+  color: #4A5E72;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+/* ── Toggle ── */
+.tc-privacy-toggle {
+  display: inline-flex;
+  gap: 0.5rem;
+  align-items: center;
+  white-space: nowrap;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: #4A5E72;
+  flex-shrink: 0;
+}
+
+.tc-privacy-toggle input {
+  width: 18px;
+  height: 18px;
+  accent-color: #5F8F95;
+  cursor: pointer;
+}
+
+.tc-privacy-toggle input:disabled {
+  cursor: default;
+  opacity: 0.5;
+}
+
+/* ── Modal action buttons ── */
+.tc-privacy-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.625rem;
+  margin-top: 1.125rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(33, 58, 90, 0.10);
+}
+
+.tc-privacy-modal-actions .tc-privacy-btn {
+  color: #213A5A;
+  border-color: rgba(33, 58, 90, 0.22);
+  background: rgba(33, 58, 90, 0.05);
+}
+
+.tc-privacy-modal-actions .tc-privacy-btn:hover {
+  border-color: rgba(33, 58, 90, 0.38);
+  background: rgba(33, 58, 90, 0.09);
+}
+
+.tc-privacy-modal-actions .tc-privacy-btn--primary {
+  background: #5F8F95;
+  color: #ffffff;
+  border-color: transparent;
+}
+
+.tc-privacy-modal-actions .tc-privacy-btn--primary:hover {
+  background: #4D7F85;
+  border-color: transparent;
+}
+
+/* ═══════════════════════════════════════════
+   Fixed "Privacy Preferences" button
+   (appears in corner after consent is given)
+   ═══════════════════════════════════════════ */
+
+.tc-privacy-preferences-fixed {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 2147483600;
+  display: none;
+  border: 1px solid rgba(95, 143, 149, 0.38);
+  background: rgba(23, 43, 68, 0.90);
+  color: rgba(246, 242, 235, 0.85);
+  border-radius: 999px;
+  padding: 0.5rem 0.875rem;
+  font: inherit;
+  font-size: 0.76rem;
+  font-weight: 700;
+  cursor: pointer;
+  backdrop-filter: blur(14px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+
+.tc-privacy-preferences-fixed:hover {
+  color: #F6F2EB;
+  border-color: rgba(95, 143, 149, 0.65);
+}
+
+.tc-privacy-preferences-fixed.is-visible {
+  display: inline-flex;
+  align-items: center;
+}
+
+/* ═══════════════════════════════════════════
+   Responsive — mobile bottom sheet
+   ═══════════════════════════════════════════ */
+
+@media (max-width: 860px) {
+  .tc-privacy-banner {
+    width: calc(100vw - 20px);
+    bottom: 10px;
+  }
+
+  .tc-privacy-panel {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 16px 18px 18px;
+    border-radius: 16px;
+  }
+
+  .tc-privacy-actions {
+    justify-content: stretch;
+    flex-direction: column;
+  }
+
+  .tc-privacy-btn {
+    width: 100%;
+    text-align: center;
+    justify-content: center;
+  }
+
+  .tc-privacy-category-top {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

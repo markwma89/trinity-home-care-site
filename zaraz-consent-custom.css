@@ -1,0 +1,9 @@
+/*
+ * Trinity Home Care — Zaraz Consent Custom CSS
+ *
+ * The consent banner is now handled entirely by the custom
+ * js/privacy-banner.js + css/privacy-banner.css implementation.
+ *
+ * The Zaraz native consent modal is DISABLED ("Show consent modal" = OFF).
+ * This field should remain empty.
+ */
