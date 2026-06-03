@@ -391,7 +391,7 @@
   .tc-privacy-preferences-fixed {
     left: auto;
     right: 24px;
-    bottom: 88px;
+    bottom: 144px;
     width: 48px;
     height: 48px;
     padding: 0;
@@ -410,4 +410,7 @@
 
   .tc-prefs-label { display: none; }
   .tc-prefs-icon  { display: flex; align-items: center; justify-content: center; }
+
+  /* Icon replaces the footer text link on mobile */
+  .privacy-preferences-link { display: none; }
 }
