@@ -183,7 +183,18 @@
     btn.className = 'tc-privacy-preferences-fixed';
     btn.id = 'tcPrivacyPrefsBtn';
     btn.type = 'button';
-    btn.textContent = 'Privacy Preferences';
+    btn.setAttribute('aria-label', 'Privacy Preferences');
+    btn.innerHTML =
+      '<span class="tc-prefs-label" aria-hidden="true">Privacy Preferences</span>' +
+      '<span class="tc-prefs-icon" aria-hidden="true">' +
+        '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" width="22" height="22">' +
+          '<circle cx="12" cy="12" r="10"/>' +
+          '<circle cx="12" cy="8" r="1.8" fill="currentColor" stroke="none"/>' +
+          '<line x1="8.5" y1="11.5" x2="15.5" y2="11.5"/>' +
+          '<line x1="12" y1="11.5" x2="12" y2="16"/>' +
+          '<polyline points="9.5,19.5 12,16 14.5,19.5"/>' +
+        '</svg>' +
+      '</span>';
     btn.addEventListener('click', showModal);
     document.body.appendChild(btn);
   }
