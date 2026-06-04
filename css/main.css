@@ -1881,7 +1881,7 @@ em { font-style: italic; }
 .form-select {
   width: 100%;
   background: rgba(255,255,255,0.08);
-  border: 1px solid rgba(255,255,255,0.18);
+  border: 1px solid rgba(255,255,255,0.45);
   border-radius: var(--radius-sm);
   padding: 0.75rem 1rem;
   font-family: var(--font-body);
