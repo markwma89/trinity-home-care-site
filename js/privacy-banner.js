@@ -38,11 +38,46 @@
     return next;
   }
 
-  /* ── Zaraz consent bridge ── */
+  /* ── Zaraz consent bridge ──
+   *
+   * Cloudflare's modern Consent API keys consent on auto-generated purpose
+   * IDs (e.g. "YIbD"), reached via zaraz.consent.set({ <id>: bool }) — NOT the
+   * legacy zaraz.setConsent({ <PurposeName>: bool }). We resolve IDs at runtime
+   * by matching the display names in zaraz.consent.purposes, so we never hard-
+   * code zone-specific IDs and only ever set purposes that actually exist
+   * (required purposes like Essential, and unassigned purposes, are skipped —
+   * calling set() on those throws "Unknown purpose id"). A legacy fallback is
+   * kept for any zone still on the old API.
+   */
+
+  function modernConsentReady() {
+    return !!(window.zaraz && window.zaraz.consent &&
+      typeof window.zaraz.consent.set === 'function' &&
+      window.zaraz.consent.purposes);
+  }
+
+  function legacyConsentReady() {
+    return !!(window.zaraz && typeof window.zaraz.setConsent === 'function');
+  }
+
+  // Map a display name (e.g. "Analytics") to its Zaraz purpose ID, or null.
+  function resolvePurposeId(displayName) {
+    try {
+      var purposes = window.zaraz.consent.purposes || {};
+      var wanted = String(displayName).toLowerCase();
+      for (var id in purposes) {
+        if (!Object.prototype.hasOwnProperty.call(purposes, id)) continue;
+        var p = purposes[id];
+        var name = p && p.name ? (p.name.en || p.name) : '';
+        if (String(name).toLowerCase() === wanted) return id;
+      }
+    } catch (e) {}
+    return null;
+  }
 
   function waitForZaraz(callback, attempts) {
     attempts = attempts || 0;
-    if (window.zaraz && typeof window.zaraz.setConsent === 'function') {
+    if (modernConsentReady() || legacyConsentReady()) {
       callback();
       return;
     }
@@ -55,15 +90,41 @@
     }, 250);
   }
 
-  function pushZarazConsent(choice) {
-    var payload = {};
-    payload[ZARAZ_PURPOSES.essential]  = true;
-    payload[ZARAZ_PURPOSES.analytics]  = Boolean(choice.analytics);
-    payload[ZARAZ_PURPOSES.marketing]  = Boolean(choice.marketing);
+  // Set a single purpose in its own call. A purpose can be *defined* (present
+  // in zaraz.consent.purposes) yet not *registered* for consent because no tool
+  // is assigned to it — set() then throws "Unknown purpose id". Setting each
+  // purpose independently (with its own try/catch) means one such purpose can't
+  // block the others in the same batch. Essential is required and is never set.
+  function setPurpose(id, value) {
+    if (!id) return;
+    try {
+      var one = {};
+      one[id] = Boolean(value);
+      window.zaraz.consent.set(one);
+    } catch (e) {}
+  }
 
+  function pushZarazConsent(choice) {
     waitForZaraz(function () {
-      if (window.zaraz && typeof window.zaraz.setConsent === 'function') {
-        window.zaraz.setConsent(payload);
+      var z = window.zaraz;
+
+      // Modern Consent API: zaraz.consent.set({ <purposeId>: boolean })
+      if (modernConsentReady()) {
+        setPurpose(resolvePurposeId(ZARAZ_PURPOSES.analytics), choice.analytics);
+        setPurpose(resolvePurposeId(ZARAZ_PURPOSES.marketing), choice.marketing);
+        if (typeof z.consent.sendQueuedEvents === 'function') {
+          try { z.consent.sendQueuedEvents(); } catch (e) {}
+        }
+        return;
+      }
+
+      // Legacy fallback: zaraz.setConsent({ <PurposeName>: boolean })
+      if (legacyConsentReady()) {
+        var legacy = {};
+        legacy[ZARAZ_PURPOSES.essential] = true;
+        legacy[ZARAZ_PURPOSES.analytics] = Boolean(choice.analytics);
+        legacy[ZARAZ_PURPOSES.marketing] = Boolean(choice.marketing);
+        try { z.setConsent(legacy); } catch (e) {}
       }
     });
   }
@@ -96,7 +157,7 @@
           '<p class="tc-privacy-eyebrow">Privacy Preferences</p>' +
           '<h2 class="tc-privacy-title">Choose how Trinity Home Care can use cookies.</h2>' +
           '<p class="tc-privacy-text">' +
-            'We use essential features to keep this site working. With your permission, we may also use analytics and marketing tools to improve our services and measure performance. ' +
+            'We use essential features to keep this site working. With your permission, we may also use analytics tools to measure and improve how the site performs. ' +
             '<a href="/privacy.html">Privacy Policy</a>' +
           '</p>' +
         '</div>' +
@@ -149,19 +210,6 @@
             '</div>' +
             '<label class="tc-privacy-toggle">' +
               '<input type="checkbox" data-tc-purpose="analytics" />' +
-              '<span>Allow</span>' +
-            '</label>' +
-          '</div>' +
-        '</div>' +
-
-        '<div class="tc-privacy-category">' +
-          '<div class="tc-privacy-category-top">' +
-            '<div>' +
-              '<h3>Marketing</h3>' +
-              '<p>Helps Trinity Home Care measure advertising performance and provide more relevant marketing messages.</p>' +
-            '</div>' +
-            '<label class="tc-privacy-toggle">' +
-              '<input type="checkbox" data-tc-purpose="marketing" />' +
               '<span>Allow</span>' +
             '</label>' +
           '</div>' +
@@ -237,7 +285,10 @@
       var t = e.target;
 
       if (t.hasAttribute('data-tc-accept')) {
-        applyConsent({ analytics: true, marketing: true });
+        // Marketing has no assigned Zaraz tool and no visible toggle, so we
+        // don't record consent for it. Re-add `marketing: true` here when a
+        // marketing tool + toggle are reintroduced.
+        applyConsent({ analytics: true, marketing: false });
         return;
       }
 
