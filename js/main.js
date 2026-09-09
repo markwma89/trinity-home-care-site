@@ -500,6 +500,14 @@
 
         form.hidden = true;
         successEl.hidden = false;
+        // Conversion: newsletter signup (exit popup). No redirect here, so the
+        // event sends cleanly. Zaraz forwards it to GA4 only after Analytics
+        // consent. Needs a matching Trigger/Action in Zaraz → GA4.
+        try {
+          if (window.zaraz && typeof window.zaraz.track === 'function') {
+            window.zaraz.track('newsletter_signup', { source: 'exit_popup', page_path: location.pathname });
+          }
+        } catch (e) {}
         suppress();
         setTimeout(() => {
           document.removeEventListener('keydown', onKeydown);
