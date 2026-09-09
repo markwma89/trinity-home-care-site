@@ -514,4 +514,51 @@
     });
   })();
 
+  /* -----------------------------------------------------------------
+     Conversion tracking → Zaraz → GA4
+     Fires GA4 events via zaraz.track(). Zaraz forwards these to the GA4
+     tool only after Analytics consent is granted (the GA4 tool is assigned
+     to the Analytics purpose), so no extra consent gating is needed here.
+     Each event needs a matching Trigger + GA4 "Send event" Action in
+     Zaraz → Tools → Google Analytics 4:
+       • generate_lead    — contact / consultation form submitted
+       • job_application  — careers application submitted
+       • phone_click      — tel: link clicked
+       • email_click      — mailto: link clicked
+     ----------------------------------------------------------------- */
+  (function () {
+    function zTrack(name, props) {
+      try {
+        if (window.zaraz && typeof window.zaraz.track === 'function') {
+          window.zaraz.track(name, props || {});
+        }
+      } catch (e) {}
+    }
+
+    // 1) Form conversions fire on the dedicated thank-you pages the forms
+    //    redirect to — the most reliable signal, since firing an event right
+    //    before window.location redirects can be cancelled by the navigation.
+    //    Handles clean URLs and .html, with or without a trailing slash.
+    var path = (location.pathname || '').toLowerCase();
+    if (/careers-thank-you(\.html)?\/?$/.test(path)) {
+      zTrack('job_application', { form_id: 'careers-form', page_path: location.pathname });
+    } else if (/thank-you(\.html)?\/?$/.test(path)) {
+      zTrack('generate_lead', { form_id: 'contact-form', page_path: location.pathname });
+    }
+
+    // 2) Phone + email click conversions (delegated, capture phase). The page
+    //    stays put on a tel:/mailto: click, so the event has time to send.
+    document.addEventListener('click', function (e) {
+      var a = (e.target && e.target.closest) ? e.target.closest('a[href]') : null;
+      if (!a) return;
+      var href = a.getAttribute('href') || '';
+      var text = (a.textContent || '').trim().slice(0, 100);
+      if (href.indexOf('tel:') === 0) {
+        zTrack('phone_click', { link_url: href, link_text: text, page_path: location.pathname });
+      } else if (href.indexOf('mailto:') === 0) {
+        zTrack('email_click', { link_url: href, link_text: text, page_path: location.pathname });
+      }
+    }, true);
+  })();
+
 })();
